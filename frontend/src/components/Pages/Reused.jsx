@@ -1,10 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import SignForm from "../SignForm";
+import SignForm from "../SignForm/SignForm";
 import waiting from "../Helpers/waiting";
 
 export default function Reused(props) {
-  //props.type="Sign In" || "Sign Up" || "Forget Password";
+  //note: props.type="Sign In" || "Sign Up" || "Forget Password";
   const navigate = useNavigate();
   const hyperlink = {
     cursor: "pointer",
