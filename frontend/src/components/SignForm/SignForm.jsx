@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./style.css";
 import Email from "./EmailInput";
 import Password from "./PasswordInput";
 import UserType from "./UserType";
@@ -40,7 +41,7 @@ export default function SignForm(props) {
   }, [email, password, userType]);
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="user-form" onSubmit={handleSubmit}>
       <Email handleEmail={handleEmail} warning={emailWarning} />
       {props.type !== "Forget Password" ? (
         <Password handlePassword={handlePassword} warning={passwordWarning} />

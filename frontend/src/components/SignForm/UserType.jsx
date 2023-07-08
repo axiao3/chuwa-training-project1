@@ -18,22 +18,28 @@ export default function UserType(props) {
   }, [customer, admin]);
 
   return (
-    <div>
-      <input
-        type="checkbox"
-        id="customer"
-        onChange={handleToggleType}
-        checked={customer}
-      />
-      <label htmlFor="customer">Customer</label>
-      <input
-        type="checkbox"
-        id="admin"
-        onChange={handleToggleType}
-        checked={admin}
-      />
-      <label htmlFor="admin">Admin</label>
-      <p style={{color:"red"}}>{props.warning}</p>
+    <div className="user-type">
+      <div>
+        <div>
+          <input
+            type="checkbox"
+            id="customer"
+            onChange={handleToggleType}
+            checked={customer}
+          />
+          <label htmlFor="customer">Customer</label>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            id="admin"
+            onChange={handleToggleType}
+            checked={admin}
+          />
+          <label htmlFor="admin">Admin</label>
+        </div>
+      </div>
+      <p style={{ color: "#FC5A44" }}>{props.warning}</p>
     </div>
   );
 }

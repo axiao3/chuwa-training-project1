@@ -1,0 +1,31 @@
+footer {
+  height: 64px;
+  padding: 0px 64px;
+  background: #111827;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  bottom: 0;
+  z-index: 999;
+}
+
+footer * {
+  color: white;
+}
+
+footer div > * {
+  margin: 0 0.5rem;
+}
+@media (max-width: 640px) {
+  footer {
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    height: auto;
+    padding: 0 2rem;
+  }
+
+  .footer-item:nth-child(2) {
+    order: 1;
+  }
+}

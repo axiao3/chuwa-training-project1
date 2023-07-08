@@ -1,7 +1,10 @@
 import React from "react";
+import "./style.css";
 import { useNavigate } from "react-router-dom";
-import SignForm from "../SignForm/SignForm";
-import waiting from "../Helpers/waiting";
+import SignForm from "../components/SignForm/SignForm";
+import waiting from "../utils/waiting";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export default function Reused(props) {
   //note: props.type="Sign In" || "Sign Up" || "Forget Password";
@@ -19,34 +22,41 @@ export default function Reused(props) {
   };
 
   return (
-    <div>
-      <h1>
+    <div className="user-action-container">
+      <p className="title">
         {props.type === "Sign In"
           ? "Sign in to your account"
           : props.type === "Sign Up"
           ? "Sign up an account"
           : "Update your password"}
-      </h1>
+      </p>
+      <button className="close">
+        <FontAwesomeIcon icon={faTimes} />
+      </button>
       {props.type === "Forget Password" ? (
         <p>Enter your email link, we will send you the recovery link</p>
       ) : null}
       <SignForm type={props.type} />
       {props.type === "Sign In" ? (
-        <div>
-          <p>Don't have an account?</p>
-          <p style={hyperlink} onClick={(e) => handleType(e)}>
-            Sign Up
-          </p>
+        <div className="bottom">
+          <div>
+            <p>Don't have an account?</p>
+            <p style={hyperlink} onClick={(e) => handleType(e)}>
+              Sign Up
+            </p>
+          </div>
           <p style={hyperlink} onClick={(e) => handleType(e)}>
             Forget Password
           </p>
         </div>
       ) : props.type === "Sign Up" ? (
-        <div>
-          <p>Already have an account?</p>
-          <p style={hyperlink} onClick={(e) => handleType(e)}>
-            Sign In
-          </p>
+        <div className="bottom">
+          <div>
+            <p>Already have an account?</p>
+            <p style={hyperlink} onClick={(e) => handleType(e)}>
+              Sign In
+            </p>
+          </div>
         </div>
       ) : null}
     </div>
