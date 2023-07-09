@@ -13,7 +13,7 @@ export default function UserType(props) {
     }
   };
   useEffect(() => {
-    const type = customer ? customer : admin ? admin : null;
+    const type = customer ? "customer" : admin ? "admin" : null;
     props.handleUserType(type);
   }, [customer, admin]);
 

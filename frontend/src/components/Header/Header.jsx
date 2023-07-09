@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
+  const handleSignIn = () => (window.location.href = "/sign-in");
   return (
     <header>
       <nav>
@@ -27,14 +28,14 @@ export default function Header() {
           </button>
         </form>
         <div className="nav-item">
-          <div>
+          <button onClick={handleSignIn}>
             <FontAwesomeIcon icon={faUser} />
             <p className="hidden">Sign In</p>
-          </div>
-          <div>
+          </button>
+          <button>
             <FontAwesomeIcon icon={faShoppingCart} />
             <p>Amount</p>
-          </div>
+          </button>
         </div>
       </nav>
     </header>

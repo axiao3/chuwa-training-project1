@@ -1,6 +1,6 @@
 header {
   background: #111827;
-  padding: 0px 4rem;
+  padding: 0 4rem;
   z-index: 999;
 }
 
@@ -12,7 +12,7 @@ nav {
   gap: 2vw;
 }
 
-nav > * {
+nav * {
   color: white;
 }
 
@@ -25,26 +25,37 @@ nav form {
 nav form input {
   padding-right: 2rem;
   flex-grow: 1;
+  height: 2rem;
   box-sizing: border-box;
 }
 
 nav form button {
   position: relative;
+  height: 2rem;
   transform: translateX(-100%);
   background: none;
+}
+
+nav form button *{
+  color: #cccccc;
 }
 
 nav div {
   display: flex;
 }
 
-nav div div {
-  margin: 0 0.5rem;
-  /* border: solid white 1px; */
+nav div button {
+  display: flex;
+  flex-wrap: nowrap;
 }
-nav div > * {
+
+nav div button > * {
+  margin: 0 0.25rem;
+}
+
+/* nav div > * {
   margin: 0 0.2rem;
-}
+} */
 
 nav p {
   white-space: nowrap;
@@ -56,6 +67,7 @@ nav p {
   }
   header {
     padding: 0 2rem;
+    padding-bottom: 1rem;
   }
   nav {
     flex-wrap: wrap;

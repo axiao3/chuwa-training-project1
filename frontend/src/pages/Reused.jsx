@@ -1,6 +1,5 @@
 import React from "react";
 import "./style.css";
-import { useNavigate } from "react-router-dom";
 import SignForm from "../components/SignForm/SignForm";
 import waiting from "../utils/waiting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -8,7 +7,6 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export default function Reused(props) {
   //note: props.type="Sign In" || "Sign Up" || "Forget Password";
-  const navigate = useNavigate();
   const hyperlink = {
     cursor: "pointer",
     color: "blue",
@@ -16,8 +14,12 @@ export default function Reused(props) {
   };
 
   const handleType = (e) => {
-    waiting(100).then(() =>
-      navigate(`/${e.target.textContent.split(" ").join("-").toLowerCase()}`)
+    waiting(100).then(
+      () =>
+        (window.location.href = `/${e.target.textContent
+          .split(" ")
+          .join("-")
+          .toLowerCase()}`)
     );
   };
 
