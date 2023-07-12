@@ -1,0 +1,73 @@
+/*-------------------SignForm------------------*/
+.user-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.user-form > button {
+  width: 100%;
+  padding: 0.5rem 0;
+  background-color: #5049e5;
+}
+
+/*-------------------SignForm------------------*/
+
+/*----------PasswordInput & EmailInput---------*/
+.password-input label,
+.email-input label {
+  display: block;
+  color: #cccccc;
+  font-size: 1rem;
+}
+
+.password-input div {
+  padding: 0;
+  box-sizing: border-box;
+  height: 2rem;
+}
+
+.email-input input,
+.password-input input {
+  border: #cccccc solid 1px;
+  padding: 0.5rem 0;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 0.2rem;
+}
+
+.password-input input {
+  padding-right: 1.5rem;
+}
+
+.password-input button {
+  background: none;
+  position: relative;
+  left: 100%;
+  padding: 0.5rem 0;
+  transform: translateY(-100%) translateX(-100%);
+  width: 1.5rem;
+  color: #cccccc;
+}
+
+.password-input p,
+.email-input p {
+  position: relative;
+  margin: 0;
+  margin-top: 5px;
+  text-align: right;
+}
+/*----------PasswordInput & EmailInput---------*/
+
+/*-------------------UserType------------------*/
+.user-type > div {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.user-type p {
+  margin: 0;
+  text-align: center;
+}
+/*-------------------UserType------------------*/
