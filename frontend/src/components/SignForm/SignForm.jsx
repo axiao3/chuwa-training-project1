@@ -4,6 +4,7 @@ import Email from "./EmailInput";
 import Password from "./PasswordInput";
 import UserType from "./UserType";
 import signUp from "../../services/SignUp";
+import signIn from "../../services/SignIn";
 import waiting from "../../utils/waiting";
 
 export default function SignForm(props) {
@@ -18,13 +19,23 @@ export default function SignForm(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!emailWarning && !passwordWarning){
+      if (props.type === "Sign In") {
+        console.log("Sign in SignForm");
+        console.log(email, password);
+        const loginResponse = await signIn(email, password);
+       
+      }
+    }
     if (!emailWarning && !passwordWarning && !userTypeWarning) {
       if (props.type === "Sign Up") {
+        console.log("Sign up SignForm");
         console.log(email, password, userType);
         const registerResponse = await signUp(email, password, userType);
         setRegister(registerResponse);
       }
     }
+   
   };
 
   const handleEmail = (e) => setEmail(e.target.value);
