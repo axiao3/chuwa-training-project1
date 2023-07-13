@@ -16,20 +16,20 @@ export default function SignForm(props) {
   const [passwordWarning, setPasswordWarning] = useState();
   const [userTypeWarning, setUserTypeWarning] = useState();
   const [register, setRegister] = useState();
+  const [login, setLogin] = useState({email: "", signInToken: ""});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if(!emailWarning && !passwordWarning){
       if (props.type === "Sign In") {
-        console.log("Sign in SignForm");
         console.log(email, password);
         const loginResponse = await signIn(email, password);
-       
+        setLogin({email: loginResponse.email, signInToken: loginResponse.token});
+        console.log("logged in: " + login.email + " token: " + login.signInToken);
       }
     }
     if (!emailWarning && !passwordWarning && !userTypeWarning) {
       if (props.type === "Sign Up") {
-        console.log("Sign up SignForm");
         console.log(email, password, userType);
         const registerResponse = await signUp(email, password, userType);
         setRegister(registerResponse);
@@ -59,7 +59,8 @@ export default function SignForm(props) {
         : null
     );
     setUserTypeWarning(!userType ? "User type is required!" : null);
-  }, [email, password, userType]);
+    localStorage.setItem(login.email, login.signInToken);
+  }, [email, password, userType, login]);
 
   return (
     <form className="user-form" onSubmit={handleSubmit}>
@@ -72,6 +73,8 @@ export default function SignForm(props) {
       ) : null}
       {register !== undefined ? <p>{register.message}</p> : null}
       <button type="submit">{props.type}</button>
+      {login.email === ""? null:<button type = "reset">log out</button>}
     </form>
+    
   );
 }

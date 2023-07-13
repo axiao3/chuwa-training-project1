@@ -16,6 +16,8 @@ export default function SignIn (email, password) {
                 resolve({
                     status: true,
                     message: `sign in successfully! Relocate to Product list page...`,
+                    email: email,
+                    token: response.data.token,
                 });
             })
             .catch((err) => {
