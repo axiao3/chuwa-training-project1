@@ -5,6 +5,7 @@ import Password from "./PasswordInput";
 import UserType from "./UserType";
 import signUp from "../../services/SignUp";
 import signIn from "../../services/SignIn";
+import logOut from "../../services/LogOut";
 import waiting from "../../utils/waiting";
 
 export default function SignForm(props) {
@@ -16,7 +17,7 @@ export default function SignForm(props) {
   const [passwordWarning, setPasswordWarning] = useState();
   const [userTypeWarning, setUserTypeWarning] = useState();
   const [register, setRegister] = useState();
-  const [login, setLogin] = useState({email: "", signInToken: ""});
+  const [login, setLogin] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,7 +26,7 @@ export default function SignForm(props) {
         console.log(email, password);
         const loginResponse = await signIn(email, password);
         setLogin({email: loginResponse.email, signInToken: loginResponse.token});
-        console.log("logged in: " + login.email + " token: " + login.signInToken);
+        console.log("logged in: " + login?.email + " token: " + login?.signInToken);
       }
     }
     if (!emailWarning && !passwordWarning && !userTypeWarning) {
@@ -44,6 +45,11 @@ export default function SignForm(props) {
 
   const handleUserType = (user) => setUserType(user);
 
+  const handleLogOut = () => {
+    logOut(login?.email);
+    setLogin();
+  }
+
   useEffect(() => {
     if (register !== undefined && register.status)
       waiting(1000).then(() => (window.location.href = "/sign-in"));
@@ -59,8 +65,14 @@ export default function SignForm(props) {
         : null
     );
     setUserTypeWarning(!userType ? "User type is required!" : null);
-    localStorage.setItem(login.email, login.signInToken);
+    
   }, [email, password, userType, login]);
+
+  useEffect(() => {
+    if (login !== undefined && login.email && login.signInToken){
+      localStorage.setItem(login.email, login.signInToken);
+    }
+  },[login])
 
   return (
     <form className="user-form" onSubmit={handleSubmit}>
@@ -73,7 +85,7 @@ export default function SignForm(props) {
       ) : null}
       {register !== undefined ? <p>{register.message}</p> : null}
       <button type="submit">{props.type}</button>
-      {login.email === ""? null:<button type = "reset">log out</button>}
+      {login == undefined? null:<button type = "reset" onClick={handleLogOut}>log out</button>}
     </form>
     
   );
