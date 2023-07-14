@@ -1,6 +1,11 @@
 :root {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
+  --var-primary-color: #111827;
+  --var-secondary-color: #ffffff;
+  --var-bg-color: #f9fafb;
+  --var-button-color: #5049e5;
+  --var-font-color: #cccccc;
 }
 
 body {
@@ -13,7 +18,6 @@ button {
   border-radius: 0.2rem;
   background: none;
 }
-
 
 p,
 span {

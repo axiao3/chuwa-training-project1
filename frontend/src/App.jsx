@@ -3,6 +3,7 @@ import Reused from "./pages/Reused";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import ItemsPage from "./pages/ItemsPage";
 
 function App() {
   return (
@@ -18,6 +19,8 @@ function App() {
               path="/forget-password"
               element={<Reused type="Forget Password" />}
             />
+            <Route path="/items" element={<ItemsPage />} />
+            <Route path="/error" element={<div>error</div>} />
           </Routes>
         </Router>
       </div>

@@ -3,7 +3,7 @@ import "./style.css";
 import Email from "./EmailInput";
 import Password from "./PasswordInput";
 import UserType from "./UserType";
-import signUp from "../../services/SignUp";
+import { signUp } from "../../services/auth";
 import waiting from "../../utils/waiting";
 
 export default function SignForm(props) {

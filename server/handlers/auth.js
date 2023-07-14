@@ -4,9 +4,10 @@ const jwt = require("jsonwebtoken");
 exports.signup = async function (req, res, next) {
   try {
     let user = await db.User.create(req.body);
-    let { email, type } = user;
+    let { email, type, id } = user;
     let token = await jwt.sign({ email }, process.env.JWT_SECRET_KEY);
     return res.status(200).json({
+      id,
       email,
       type,
       token,
