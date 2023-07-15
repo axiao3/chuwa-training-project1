@@ -2,7 +2,7 @@ import axios from "axios";
 const apiUrl = "http://localhost:8080";
 
 export default function SignIn(email, password) {
-  console.log("Sign in services SignIn");
+  // console.log("Sign in services SignIn");
   return new Promise((resolve, reject) => {
     axios
       .post(`${apiUrl}/signin`, {

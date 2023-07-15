@@ -52,7 +52,7 @@ export default function SignForm(props) {
   const handleUserType = (user) => setUserType(user);
 
   const handleLogOut = () => {
-    logOut(login?.email);
+    logOut(login?.email, login?.token);
     setLogin();
   };
 
@@ -101,5 +101,6 @@ export default function SignForm(props) {
         </button>
       )}
     </form>
+    
   );
 }

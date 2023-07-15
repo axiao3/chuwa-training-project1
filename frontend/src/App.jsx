@@ -4,11 +4,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import ItemsPage from "./pages/ItemsPage";
+import ItemDetailPage from "./pages/ItemDetailPage";
 
 function App() {
   return (
     <div className="app">
-      <Header />
+      <Header /> 
+      {/* cannot re-render on time */}
       <div className="app-content">
         <Router>
           <Routes>
@@ -21,6 +23,7 @@ function App() {
               element={<Reused type="Forget Password" />}
             />
             <Route path="/items" element={<ItemsPage />} />
+            <Route path="/item" element={<ItemDetailPage />} />
             <Route path="/error" element={<div>error</div>} />
           </Routes>
         </Router>
