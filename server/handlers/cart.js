@@ -28,7 +28,7 @@ exports.cartFetchAll = async function (req, res, next) {
         return item;
       })
     );
-
+    console.log(cartItems);
     res.status(200).json(cartItems);
   } catch (err) {
     return next({

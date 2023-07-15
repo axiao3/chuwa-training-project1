@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./style.css";
 import ReactPaginate from "react-paginate";
 import OneItem from "../components/ItemList/OneItem";
-import { getItemsList } from "../services/item";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItemsAction } from "../app/itemsSlice";
 
