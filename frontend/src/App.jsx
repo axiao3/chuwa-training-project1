@@ -5,6 +5,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import ItemsPage from "./pages/ItemsPage";
 import ItemDetailPage from "./pages/ItemDetailPage";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   return (
@@ -23,8 +24,8 @@ function App() {
               element={<Reused type="Forget Password" />}
             />
             <Route path="/items" element={<ItemsPage />} />
-            <Route path="/item" element={<ItemDetailPage />} />
-            <Route path="/error" element={<div>error</div>} />
+            <Route path="/items/:id" element={<ItemDetailPage />} />
+            <Route path="/error" element={<ErrorPage />} />
           </Routes>
         </Router>
       </div>
