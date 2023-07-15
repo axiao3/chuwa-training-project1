@@ -12,7 +12,7 @@ export default function OneItem(props) {
       <p className="item-name"> {props.item.name} </p>
       <p className="item-price">${props.item.price}</p>
       <div className="buttons-container">
-        <AddButton quantity={props.item.cartQuantity} itemId={props.item._id} />
+        <AddButton itemId={props.item._id} />
         {user.type === "admin" ? <EditButton itemId={props.item._id} /> : null}
       </div>
     </div>
