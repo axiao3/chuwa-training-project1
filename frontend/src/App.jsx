@@ -12,6 +12,7 @@ function App() {
       <div className="app-content">
         <Router>
           <Routes>
+            <Route path="/" element={<div>home</div>} />
             <Route path="/sign-up" element={<Reused type="Sign Up" />} />
             <Route path="/sign-in" element={<Reused type="Sign In" />} />
             <Route path="/:username" element={<div>userdashboard</div>} />

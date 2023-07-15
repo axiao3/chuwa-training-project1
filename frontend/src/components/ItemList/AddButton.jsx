@@ -1,28 +1,19 @@
 import React, { useState, useEffect } from "react";
 import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
+import { cartDecrementAction, cartIncrementAction } from "../../app/cartSlice";
 
 export default function AddButton(props) {
   //props.quantity,props.itemId
+  const cart = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
-  const user = { _id: "64adf80caf5e77b6b530b516" }; //test
-  //const { user } = useSelector((state) => state.user);
 
   const handleAdd = () => {
-    dispatch(
-      AddItem({
-        userId: user._id,
-        itemId: props.itemId,
-        quantity: cart[props.itemId] ? cart[props.itemId].quantity + 1 : 1,
-      })
-    ).then(() => {
-      console.log("added");
-    });
+    dispatch(cartIncrementAction({ itemId: props.itemId, quantity: 1 }));
   };
 
   const handleRemove = () => {
-    //axios.post to add quantity //should return a sum of value
+    dispatch(cartDecrementAction({ itemId: props.itemId, quantity: 1 }));
   };
 
   return !cart[props.itemId] ? (

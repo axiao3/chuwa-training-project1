@@ -4,14 +4,18 @@ const apiUrl = "http://localhost:8080";
 export function getItemsList() {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${apiUrl}/item/get-list`)
+      .get(`${apiUrl}/item/get-list`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
       .then((response) => {
         //[{…}, {…}, {…}]
         resolve(response.data);
       })
       .catch((err) => {
-        console.log(err.response.data.error.message);
-        reject(err.response.data.error.message);
+        console.log(err);
+        reject(err);
       });
   });
 }

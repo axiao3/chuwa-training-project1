@@ -1,12 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import userReducer from "./userSlice";
-import errorReducer from "./errorSlice";
+import itemsReducer from "./itemsSlice";
+import cartSlice from "./cartSlice";
+
+// import errorReducer from "./errorSlice";
 
 export default configureStore({
   reducer: {
-    user: userReducer,
-    error: errorReducer,
+    items: itemsReducer,
+    cart: cartSlice,
+    // error: errorReducer,
   },
   devTools: true,
 });

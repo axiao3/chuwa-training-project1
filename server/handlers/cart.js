@@ -1,23 +1,35 @@
 const Cart = require("../models/cart");
+const Item = require("../models/item");
 
-exports.addItem = async function (req, res, next) {
+cartFetchOne = async function (userId, itemId) {
   try {
-    console.log("addItem", req.body);
-    const userId = req.body.user;
-    const itemId = req.body.item;
-    const item = await Cart.findOne({ user: userId, item: itemId });
-    if (!item) {
-      const newItem = new Cart(req.body);
-      const savedItem = await newItem.save();
-      res.status(200).json(savedItem);
-    } else {
-      const updatedItem = await Cart.findOneAndUpdate(
-        { user: userId, item: itemId },
-        { quantity: req.body.quantity },
-        { new: true }
-      );
-      res.status(200).json(updatedItem);
-    }
+    let item = await Cart.findOne({
+      user: userId,
+      item: itemId,
+    }).select("user item quantity createdAt");
+    itemPrice = await Item.findOne({ _id: itemId }).select("price");
+    item = item.toObject();
+    item.price = itemPrice.price;
+    return item;
+  } catch (err) {
+    return next(err);
+  }
+};
+
+exports.cartFetchAll = async function (req, res, next) {
+  try {
+    const allItemsId = await Cart.find({
+      user: req.userId,
+    }).select("item");
+
+    const cartItems = await Promise.all(
+      allItemsId.map(async (id) => {
+        const item = await cartFetchOne(req.userId, id.item);
+        return item;
+      })
+    );
+
+    res.status(200).json(cartItems);
   } catch (err) {
     return next({
       status: 400,
@@ -26,11 +38,17 @@ exports.addItem = async function (req, res, next) {
   }
 };
 
-exports.removeItem = async function (req, res, next) {
+exports.cartIncrement = async function (req, res, next) {
   try {
-    const id = req.params.itemId;
-    const items = await Cart.remove({ _id: id });
-    res.status(200).json(items);
+    const { itemId, quantity } = req.body;
+    const userId = req.userId;
+    const item = await Cart.updateOne(
+      { user: userId, item: itemId },
+      { $inc: { quantity: quantity } },
+      { upsert: true }
+    );
+    const addedItem = await cartFetchOne(userId, itemId);
+    res.status(200).json(addedItem);
   } catch (err) {
     return next({
       status: 400,
@@ -39,25 +57,20 @@ exports.removeItem = async function (req, res, next) {
   }
 };
 
-exports.getAllItems = async function (req, res, next) {
+exports.cartDecrement = async function (req, res, next) {
   try {
-    const userId = req.params.userId;
-    const items = await Cart.find({ user: userId });
-    res.status(200).json(items);
-  } catch (err) {
-    return next({
-      status: 400,
-      message: err.message,
-    });
-  }
-};
-
-exports.getOneItem = async function (req, res, next) {
-  try {
-    const { userId, itemId } = req.params;
-    const item = await Cart.findOne({ user: userId, item: itemId });
-
-    res.status(200).json(item);
+    const { itemId, quantity } = req.params;
+    const userId = req.userId;
+    const item = await Cart.updateOne(
+      { user: userId, item: itemId },
+      { $inc: { quantity: -quantity } }
+    );
+    let reducedItem = await cartFetchOne(userId, itemId);
+    console.log(reducedItem);
+    if (reducedItem.quantity <= 0)
+      await Cart.deleteOne({ user: userId, item: itemId });
+    console.log(reducedItem);
+    res.status(200).json(reducedItem);
   } catch (err) {
     return next({
       status: 400,

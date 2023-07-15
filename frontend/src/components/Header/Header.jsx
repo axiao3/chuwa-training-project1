@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -6,9 +6,18 @@ import {
   faUser,
   faShoppingCart,
 } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCartAction } from "../../app/cartSlice";
 
 export default function Header() {
+  const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
   const handleSignIn = () => (window.location.href = "/sign-in");
+
+  useEffect(() => {
+    dispatch(fetchCartAction());
+  }, []);
+
   return (
     <header>
       <nav>
@@ -34,7 +43,7 @@ export default function Header() {
           </button>
           <button>
             <FontAwesomeIcon icon={faShoppingCart} />
-            <p>Amount</p>
+            <p>${cart.totalPrice ?? 0.00}</p>
           </button>
         </div>
       </nav>

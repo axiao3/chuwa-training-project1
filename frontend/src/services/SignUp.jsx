@@ -17,6 +17,7 @@ export default function signUp(email, password, type) {
         });
       })
       .catch((err) => {
+        alert(err.response.data.error.message);
         console.log(err.response.data.error.message);
         reject(err.response.data.error.message);
       });
