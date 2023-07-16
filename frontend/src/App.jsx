@@ -11,14 +11,12 @@ function App() {
   return (
     <div className="app">
       <Header />
-      {/* cannot re-render on time */}
       <div className="app-content">
         <Router>
           <Routes>
             <Route path="/" element={<div>home</div>} />
             <Route path="/sign-up" element={<Reused type="Sign Up" />} />
             <Route path="/sign-in" element={<Reused type="Sign In" />} />
-            <Route path="/:username" element={<div>userdashboard</div>} />
             <Route
               path="/forget-password"
               element={<Reused type="Forget Password" />}

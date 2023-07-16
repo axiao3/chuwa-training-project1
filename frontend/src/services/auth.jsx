@@ -13,7 +13,6 @@ export function signUp(email, password, type) {
         console.log(response.data);
         resolve({
           status: true,
-          message: `sign up successfully! Relocate to login...`,
         });
       })
       .catch((err) => {
@@ -35,17 +34,15 @@ export function signIn(email, password, type) {
         console.log(response.data);
         alert("Signed in successfully!");
         resolve({
-          status: true,
-          message: `sign in successfully! Relocate to Product list page...`,
           email: email,
           token: response.data.token,
           type: response.data.type,
+          id: response.data.id,
         });
       })
       .catch((err) => {
         alert("Wrong email /password.");
-        console.log(err.response.data.error.message);
-        reject(err.response.data.error.message);
+        reject({ status: false, message: err.response.data.error.message });
       });
   });
 }
@@ -53,7 +50,6 @@ export function signIn(email, password, type) {
 export function logOut(key, value) {
   if (key) {
     //if there is such a user signed in, log it out
-    alert("Logged out.");
     localStorage.clear();
   }
   console.log("log out: " + key + value);

@@ -8,29 +8,27 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartAction } from "../../app/cartSlice";
-import logOut from "../../services/LogOut";
+import { logOutUser } from "../../app/userSlice";
 
 export default function Header() {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
-  const user = useSelector((state) => state.user);
-  const [display, setDisplay] = useState("");
+  const { user, isAuthenticated } = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (Object.keys(user.user).length !== 0) dispatch(fetchCartAction());
+    if (Object.keys(user).length > 0) {
+      console.log(666);
+      dispatch(fetchCartAction());
+    }
   }, []);
 
-  const handleSignIn = () => {
-    if (localStorage.getItem("email") && localStorage.getItem("token")) {
-      setDisplay("Log Out");
-      document.getElementById("display").innerHTML = display;
-      logOut(localStorage.getItem("email"), localStorage.getItem("token"));
-      console.log("sign in -> log out");
-    } else {
-      setDisplay("Sign In");
-      document.getElementById("display").innerHTML = display;
-    }
+  const cart = useSelector((state) => state.cart);
 
+  const handleSignIn = () => {
+    window.location.href = "/sign-in";
+  };
+
+  const handleLogOut = () => {
+    dispatch(logOutUser());
     window.location.href = "/sign-in";
   };
 
@@ -53,8 +51,8 @@ export default function Header() {
           </button>
         </form>
         <div className="nav-item">
-          {localStorage.getItem("token") ? (
-            <button onClick={handleSignIn}>
+          {isAuthenticated ? (
+            <button onClick={handleLogOut}>
               <FontAwesomeIcon icon={faUser} />
               <p className="hidden" id="display">
                 Log Out

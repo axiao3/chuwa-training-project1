@@ -10,7 +10,7 @@ import waiting from "../../utils/waiting";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartAction } from "../../app/cartSlice";
-import { signUpAction, signInAction, logOutAction } from "../../app/userSlice";
+import { signUpAction, signInAction } from "../../app/userSlice";
 
 export default function SignForm(props) {
   //note: props.type="Sign In" || "Sign Up" || "Forget Password";
@@ -23,27 +23,19 @@ export default function SignForm(props) {
   const [passwordWarning, setPasswordWarning] = useState();
   const [userTypeWarning, setUserTypeWarning] = useState();
   const [actionWarning, setActionWarning] = useState();
-  const [login, setLogin] = useState();
   const user = useSelector((state) => state.user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!emailWarning && !passwordWarning) {
       if (props.type === "Sign In") {
-        console.log(email, password);
         dispatch(
           signInAction({ email: email, password: password, userType: userType })
         ).then(console.log(user));
-      }
-    }
-    if (!emailWarning && !passwordWarning && !userTypeWarning) {
-      if (props.type === "Sign Up") {
+      } else if (!userTypeWarning && props.type === "Sign Up") {
         dispatch(
           signUpAction({ email: email, password: password, userType: userType })
         );
-        //const registerResponse = await signUp(email, password, userType);
-        //setRegister(registerResponse);
-        // setRegister(true);
       }
     }
   };
@@ -77,7 +69,7 @@ export default function SignForm(props) {
         : null
     );
     setUserTypeWarning(!userType ? "User type is required!" : null);
-  }, [email, password, userType, login]);
+  }, [email, password, userType]);
 
   return (
     <form className="user-form" onSubmit={handleSubmit}>
@@ -98,12 +90,6 @@ export default function SignForm(props) {
       ) : null}
 
       <button type="submit">{props.type}</button>
-
-      {login == undefined ? null : (
-        <button type="reset" onClick={handleLogOut}>
-          log out
-        </button>
-      )}
     </form>
   );
 }

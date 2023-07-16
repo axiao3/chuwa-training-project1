@@ -34,7 +34,7 @@ exports.signin = async function (req, res, next) {
     console.log("Sign in Backend handler/auth: " + isMatch);
     if (isMatch) {
       // Generate JWT Token
-      let token = jwt.sign({ email }, process.env.JWT_SECRET_KEY);
+      let token = jwt.sign({ email, type }, process.env.JWT_SECRET_KEY);
       return res.status(200).json({
         email,
         isMatch,
