@@ -31,8 +31,6 @@ export function signIn(email, password, type) {
         type: type,
       })
       .then((response) => {
-        console.log(response.data);
-        alert("Signed in successfully!");
         resolve({
           email: email,
           token: response.data.token,
@@ -41,7 +39,6 @@ export function signIn(email, password, type) {
         });
       })
       .catch((err) => {
-        alert("Wrong email /password.");
         reject({ status: false, message: err.response.data.error.message });
       });
   });

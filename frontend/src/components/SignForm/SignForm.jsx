@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import "./style.css";
 import Email from "./EmailInput";
 import Password from "./PasswordInput";
 import UserType from "./UserType";
-import { signUp } from "../../services/auth";
-import signIn from "../../services/SignIn";
-// import logOut from "../../services/LogOut";
 import waiting from "../../utils/waiting";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { fetchCartAction } from "../../app/cartSlice";
 import { signUpAction, signInAction } from "../../app/userSlice";
 
 export default function SignForm(props) {
   //note: props.type="Sign In" || "Sign Up" || "Forget Password";
   const navigate = useNavigate();
+  const location = useLocation();
+  const user = useSelector((state) => state.user);
+  if (Object.keys(user.user).length) {
+    navigate(location.state?.from || "/items");
+  }
   const dispatch = useDispatch();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -23,7 +25,6 @@ export default function SignForm(props) {
   const [passwordWarning, setPasswordWarning] = useState();
   const [userTypeWarning, setUserTypeWarning] = useState();
   const [actionWarning, setActionWarning] = useState();
-  const user = useSelector((state) => state.user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,7 +32,7 @@ export default function SignForm(props) {
       if (props.type === "Sign In") {
         dispatch(
           signInAction({ email: email, password: password, userType: userType })
-        ).then(console.log(user));
+        );
       } else if (!userTypeWarning && props.type === "Sign Up") {
         dispatch(
           signUpAction({ email: email, password: password, userType: userType })
@@ -49,12 +50,12 @@ export default function SignForm(props) {
   useEffect(() => {
     if (user.status !== "idle") setActionWarning(user.status);
     if (user.status === "Sign up succeeded") {
-      waiting(1000).then(() => (window.location.href = "/sign-in"));
+      waiting(1500).then(() => (window.location.href = "/sign-in"));
     }
     if (user.status === "Sign in succeeded") {
-      waiting(1000).then(() => {
+      waiting(1500).then(() => {
         dispatch(fetchCartAction());
-        navigate("/items");
+        navigate(location.state?.from || "/items");
       });
     }
   }, [user.status]);

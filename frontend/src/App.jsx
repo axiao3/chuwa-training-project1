@@ -23,6 +23,7 @@ function App() {
             />
             <Route path="/items" element={<ItemsPage />} />
             <Route path="/items/:id" element={<ItemDetailPage />} />
+            <Route path="/items/create" element={<div>create product</div>} />
             <Route path="/error" element={<ErrorPage />} />
           </Routes>
         </Router>

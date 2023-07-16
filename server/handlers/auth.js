@@ -31,7 +31,6 @@ exports.signin = async function (req, res, next) {
     });
     let { email, password, type, id } = user;
     let isMatch = await bcrypt.compare(req.body.password, password);
-    console.log("Sign in Backend handler/auth: " + isMatch);
     if (isMatch) {
       // Generate JWT Token
       let token = jwt.sign({ email, type }, process.env.JWT_SECRET_KEY);

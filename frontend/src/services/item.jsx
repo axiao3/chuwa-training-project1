@@ -1,10 +1,10 @@
 import axios from "axios";
 const apiUrl = "http://localhost:8080";
 
-export function getItemsList() {
+export function getItemsList(sort, page) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${apiUrl}/item/get-list`, {
+      .get(`${apiUrl}/item/get-list/${sort}/${page}`, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -33,6 +33,24 @@ export function getOneItem(id) {
       .then((response) => {
         resolve(response.data);
         console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
+      });
+  });
+}
+
+export function getItemsAmount() {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${apiUrl}/item/get-amount`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        resolve(response.data);
       })
       .catch((err) => {
         console.log(err);

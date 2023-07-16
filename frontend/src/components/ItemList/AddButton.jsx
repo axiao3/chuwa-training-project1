@@ -22,9 +22,13 @@ export default function AddButton(props) {
     </div>
   ) : (
     <div className="add-button">
-      <button onClick={handleRemove}>-</button>
+      <button onClick={handleRemove} style={{ fontSize: "1.2rem" }}>
+        -
+      </button>
       <p>{cart[props.itemId].quantity}</p>
-      <button onClick={handleAdd}>+</button>
+      <button onClick={handleAdd} style={{ fontSize: "1.2rem" }}>
+        +
+      </button>
     </div>
   );
 }

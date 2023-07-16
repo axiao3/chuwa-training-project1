@@ -1,3 +1,15 @@
+/*---------------ItemsList---------------*/
+.items-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  background: var(--var-secondary-color);
+}
+/*---------------ItemsList---------------*/
+
+/*---------------OneItem---------------*/
 .item {
   height: auto;
   border: solid var(--var-font-color) 1px;
@@ -38,13 +50,22 @@
   flex: 1;
   padding: 0.2rem 0;
 }
+/*---------------OneItem---------------*/
 
-/*---------------AddButton---------------*/
-.add-button {
+/*---------------AddButton, CreateButton---------------*/
+.add-button,
+.create-button {
   background: var(--var-button-color);
   border-radius: 0.2rem;
   display: flex;
   align-items: center;
+  box-sizing: border-box;
+  height: 2rem;
+}
+
+.create-button {
+  padding: 0 1rem;
+  color: white;
 }
 
 .add-button > * {
@@ -61,4 +82,16 @@
 
 .edit-button {
   border: var(--var-font-color) solid 1px;
+}
+
+/*---------------Sort---------------*/
+.sort {
+  padding: 0.5rem;
+  height: fit-content;
+}
+/*---------------Sort---------------*/
+@media (max-width: 640px) {
+  .item {
+    flex-basis: 1;
+  }
 }
