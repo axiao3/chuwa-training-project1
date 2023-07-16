@@ -31,7 +31,9 @@ export default function SignForm(props) {
     if (!emailWarning && !passwordWarning) {
       if (props.type === "Sign In") {
         console.log(email, password);
+         // dispatch (signInAction(email&password)) 判断+local storage
         const loginResponse = await signIn(email, password);
+       
         setLogin({
           email: loginResponse.email,
           signInToken: loginResponse.token,
@@ -70,6 +72,7 @@ export default function SignForm(props) {
     if (user.status === "Sign up succeeded") {
       waiting(1000).then(() => (window.location.href = "/sign-in"));
     }
+    //if sign in succeeded => dispatch(fetchCartAction()); + "/items" 
   }, [user.status]);
 
   useEffect(() => {
@@ -93,7 +96,7 @@ export default function SignForm(props) {
       dispatch(fetchCartAction());
       navigate("/items");
     }
-  }, [login]);
+  }, [login]);//->userSlice signInAction
 
   return (
     <form className="user-form" onSubmit={handleSubmit}>

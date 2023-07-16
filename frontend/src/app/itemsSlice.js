@@ -24,11 +24,12 @@ export const fetchItemsAction = createAsyncThunk(
   }
 );
 
+//fetchOneItemAction "items/fetchOneItem"
+
 const itemsSlice = createSlice({
   name: "items",
   initialState,
-  reducers: {
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchItemsAction.fulfilled, (state, action) => {
       state.status = "succeeded";

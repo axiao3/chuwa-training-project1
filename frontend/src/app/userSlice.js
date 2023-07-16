@@ -33,6 +33,7 @@ export const signInAction = createAsyncThunk(
       const user = await signIn(email, password);
       // thunkAPI.dispatch(removeError());
       return user;
+      
     } catch (error) {
       const { message } = error;
       // thunkAPI.dispatch(addError(message));

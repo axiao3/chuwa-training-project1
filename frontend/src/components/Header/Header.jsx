@@ -34,18 +34,6 @@ export default function Header() {
     window.location.href = "/sign-in";
   };
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("email") && localStorage.getItem("token")) {
-  //     console.log("sign in -> log out");
-  //     display = "Log Out";
-  //     document.getElementById("display").innerHTML = "Log Out";
-  //   }else{
-  //     console.log("log out -> sign in");
-  //     display = "Sign In";
-  //     document.getElementById("display").innerHTML = "Sign In";
-  //   }
-  // }, [localStorage.getItem("email"), localStorage.getItem("token")]);
-
   return (
     <header>
       <nav>

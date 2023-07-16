@@ -5,6 +5,8 @@ import { cartDecrementAction, cartIncrementAction } from "../../app/cartSlice";
 
 export default function AddButton(props) {
   //props.quantity,props.itemId
+
+  console.log(props);
   const cart = useSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
 

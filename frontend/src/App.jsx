@@ -10,7 +10,7 @@ import ErrorPage from "./pages/ErrorPage";
 function App() {
   return (
     <div className="app">
-      <Header /> 
+      <Header />
       {/* cannot re-render on time */}
       <div className="app-content">
         <Router>
