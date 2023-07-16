@@ -8,7 +8,7 @@
 .user-form > button {
   width: 100%;
   padding: 0.5rem 0;
-  background-color: #5049e5;
+  background-color: var(--var-button-color);
 }
 
 /*-------------------SignForm------------------*/
@@ -17,7 +17,7 @@
 .password-input label,
 .email-input label {
   display: block;
-  color: #cccccc;
+  color: var(--var-font-color);
   font-size: 1rem;
 }
 
@@ -29,7 +29,7 @@
 
 .email-input input,
 .password-input input {
-  border: #cccccc solid 1px;
+  border: var(--var-font-color) solid 1px;
   padding: 0.5rem 0;
   box-sizing: border-box;
   width: 100%;
@@ -47,7 +47,7 @@
   padding: 0.5rem 0;
   transform: translateY(-100%) translateX(-100%);
   width: 1.5rem;
-  color: #cccccc;
+  color: var(--var-font-color);
 }
 
 .password-input p,

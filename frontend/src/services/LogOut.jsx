@@ -1,10 +1,10 @@
-export default function LogOut(key){
-    // localStorage.clear();
-    if(key){
+export default function LogOut(key, value){
+    
+    if(key){//if there is such a user signed in, log it out
         alert("Logged out.");
-        localStorage.removeItem(key);
+        localStorage.clear(); 
     }
-    console.log("log out: " + key);
+    console.log("log out: " + key + value);
     
     
 }

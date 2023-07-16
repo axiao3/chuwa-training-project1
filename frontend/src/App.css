@@ -1,5 +1,5 @@
 .app {
-  background-color: #f9fafb;
+  background-color: var(--var-bg-color);
 }
 
 .app-content {
