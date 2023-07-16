@@ -31,16 +31,9 @@ export default function SignForm(props) {
     if (!emailWarning && !passwordWarning) {
       if (props.type === "Sign In") {
         console.log(email, password);
-         // dispatch (signInAction(email&password)) 判断+local storage
-        const loginResponse = await signIn(email, password);
-       
-        setLogin({
-          email: loginResponse.email,
-          signInToken: loginResponse.token,
-        });
-        console.log(
-          "logged in: " + login?.email + " token: " + login?.signInToken
-        );
+        dispatch(
+          signInAction({ email: email, password: password, userType: userType })
+        ).then(console.log(user));
       }
     }
     if (!emailWarning && !passwordWarning && !userTypeWarning) {
@@ -61,18 +54,17 @@ export default function SignForm(props) {
 
   const handleUserType = (user) => setUserType(user);
 
-  const handleLogOut = () => {
-    //logOut(login?.email, login?.token);
-    logOutAction(login?.email, login?.token);
-    setLogin();
-  };
-
   useEffect(() => {
     if (user.status !== "idle") setActionWarning(user.status);
     if (user.status === "Sign up succeeded") {
       waiting(1000).then(() => (window.location.href = "/sign-in"));
     }
-    //if sign in succeeded => dispatch(fetchCartAction()); + "/items" 
+    if (user.status === "Sign in succeeded") {
+      waiting(1000).then(() => {
+        dispatch(fetchCartAction());
+        navigate("/items");
+      });
+    }
   }, [user.status]);
 
   useEffect(() => {
@@ -86,17 +78,6 @@ export default function SignForm(props) {
     );
     setUserTypeWarning(!userType ? "User type is required!" : null);
   }, [email, password, userType, login]);
-
-  useEffect(() => {
-    if (login !== undefined && login.email && login.signInToken) {
-      localStorage.setItem("token", login.signInToken);
-      localStorage.setItem("email", login.email);
-
-      /* Zixin: href to items page */
-      dispatch(fetchCartAction());
-      navigate("/items");
-    }
-  }, [login]);//->userSlice signInAction
 
   return (
     <form className="user-form" onSubmit={handleSubmit}>

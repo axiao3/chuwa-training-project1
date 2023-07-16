@@ -19,4 +19,24 @@ export function getItemsList() {
       });
   });
 }
+
 // getOneItem
+export function getOneItem(id) {
+  console.log(id);
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`${apiUrl}/item/get-one/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      })
+      .then((response) => {
+        resolve(response.data);
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
+      });
+  });
+}

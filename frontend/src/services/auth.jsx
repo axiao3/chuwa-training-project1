@@ -22,13 +22,14 @@ export function signUp(email, password, type) {
   });
 }
 
-export function signIn(email, password) {
+export function signIn(email, password, type) {
   // console.log("Sign in services SignIn");
   return new Promise((resolve, reject) => {
     axios
       .post(`${apiUrl}/signin`, {
         email: email,
         password: password,
+        type: type,
       })
       .then((response) => {
         console.log(response.data);
@@ -38,6 +39,7 @@ export function signIn(email, password) {
           message: `sign in successfully! Relocate to Product list page...`,
           email: email,
           token: response.data.token,
+          type: response.data.type,
         });
       })
       .catch((err) => {

@@ -29,7 +29,7 @@ exports.signin = async function (req, res, next) {
     let user = await db.User.findOne({
       email: req.body.email,
     });
-    let { email, password } = user;
+    let { email, password, type, id } = user;
     let isMatch = await bcrypt.compare(req.body.password, password);
     console.log("Sign in Backend handler/auth: " + isMatch);
     if (isMatch) {
@@ -39,6 +39,8 @@ exports.signin = async function (req, res, next) {
         email,
         isMatch,
         token,
+        type,
+        id,
       });
     } else {
       return next({

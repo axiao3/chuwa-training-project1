@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 // import { removeError, addError } from "./errorSlice";
-
+import { fetchCartAction } from "./cartSlice";
 import { signIn, signUp, logOut } from "../services/auth";
 
 const initialState = {
@@ -16,6 +16,7 @@ export const signUpAction = createAsyncThunk(
       console.log(555, data);
       const user = await signUp(email, password, userType);
       // thunkAPI.dispatch(removeError());
+      console.log("sign up in user slice: " + user);
       return user;
     } catch (error) {
       const { message } = error;
@@ -29,11 +30,16 @@ export const signInAction = createAsyncThunk(
   "user/signIn",
   async (data, thunkAPI) => {
     try {
-      const { email, password } = data;
-      const user = await signIn(email, password);
+      const { email, password, userType } = data;
+      const user = await signIn(email, password, userType);
+
+      if (user.email && user.token) {
+        localStorage.setItem("token", user.token);
+        localStorage.setItem("email", user.email);
+      }
       // thunkAPI.dispatch(removeError());
+      console.log("sign in in user slice: ", user);
       return user;
-      
     } catch (error) {
       const { message } = error;
       // thunkAPI.dispatch(addError(message));
