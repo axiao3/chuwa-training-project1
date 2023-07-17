@@ -8,7 +8,6 @@ import waiting from "../utils/waiting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
-
 export default function Reused(props) {
   //note: props.type="Sign In" || "Sign Up" || "Forget Password";
   const hyperlink = {

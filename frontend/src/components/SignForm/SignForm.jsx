@@ -1,22 +1,23 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import "./style.css";
 import Email from "./EmailInput";
 import Password from "./PasswordInput";
 import UserType from "./UserType";
-import { signUp } from "../../services/auth";
-import signIn from "../../services/SignIn";
-// import logOut from "../../services/LogOut";
 import waiting from "../../utils/waiting";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { fetchCartAction } from "../../app/cartSlice";
 import { signUpAction, signInAction, checkExistAction, updatePasswordAction } from "../../app/userSlice";
 
 export default function SignForm(props) {
   //note: props.type="Sign In" || "Sign Up" || "Forget Password";
   const navigate = useNavigate();
+  const location = useLocation();
+  const user = useSelector((state) => state.user);
+  useEffect(() => {}, [user]);
+
   const dispatch = useDispatch();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -27,7 +28,6 @@ export default function SignForm(props) {
   const [newpasswordWarning, setNewPasswordWarning] = useState();
   const [userTypeWarning, setUserTypeWarning] = useState();
   const [actionWarning, setActionWarning] = useState();
-  const user = useSelector((state) => state.user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,10 +45,9 @@ export default function SignForm(props) {
 
     if (!emailWarning && !passwordWarning) {
       if (props.type === "Sign In") {
-        console.log("sign in statement");
-        dispatch(
-          signInAction({ email: email, password: password, userType: userType })
-        ).then(console.log(user));
+        dispatch(signInAction({ email: email, password: password })).then(() =>
+          dispatch(fetchCartAction())
+        );
       } else if (!userTypeWarning && props.type === "Sign Up") {
         console.log("sign up statement");
         dispatch(
@@ -72,13 +71,9 @@ export default function SignForm(props) {
       waiting(1000).then(() => (window.location.href = "/sign-in"));
     }
     if (user.status === "Sign in succeeded") {
-      waiting(1000).then(() => {
-        dispatch(fetchCartAction());
-        navigate("/items");
+      waiting(1500).then(() => {
+        navigate(location.state?.from || "/items");
       });
-    }
-    if (user.status === "update succeeded") {
-      waiting(1000).then(() => (window.location.href = "/sign-in"));
     }
   }, [user.status]);
 

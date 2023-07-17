@@ -1,0 +1,66 @@
+.cart > * {
+  border: solid green 1px;
+  padding: 0.5rem 1rem;
+}
+/*--------------------Cart Title---------------------*/
+.cart-title {
+  background: var(--var-button-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 1rem;
+}
+
+.cart-title > * {
+  color: white;
+}
+
+.cart-title p {
+  flex: 2;
+}
+
+.cart-title .close {
+  width: fit-content;
+  font-size: 1.5rem;
+}
+/*--------------------Cart Title---------------------*/
+
+/*----------------------Coupon-----------------------*/
+
+.coupon-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.coupon-form div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.coupon-form input {
+  padding: 0.5rem 1rem;
+  width: 100%;
+}
+
+.coupon-form button {
+  background: var(--var-button-color);
+  color: white;
+  padding: 0.5rem 1rem;
+}
+/*----------------------Coupon-----------------------*/
+
+/*----------------------CartSummary-----------------------*/
+.cart-summary p {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cart-summary button {
+  background: var(--var-button-color);
+  color: white;
+  padding: 0.5rem 1rem;
+  width: 100%;
+}
+/*----------------------CartSummary-----------------------*/

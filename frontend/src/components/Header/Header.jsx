@@ -9,14 +9,15 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartAction } from "../../app/cartSlice";
 import { logOutUser } from "../../app/userSlice";
+import Cart from "../Cart/Cart";
 
 export default function Header() {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.user);
+  const [cartOpen, setCartOpen] = useState(false);
 
   useEffect(() => {
     if (Object.keys(user).length > 0) {
-      console.log(666);
       dispatch(fetchCartAction());
     }
   }, []);
@@ -67,12 +68,13 @@ export default function Header() {
             </button>
           )}
 
-          <button>
+          <button onClick={() => setCartOpen((prevCartOpen) => !prevCartOpen)}>
             <FontAwesomeIcon icon={faShoppingCart} />
             <p>${cart.totalPrice ?? 0.0}</p>
           </button>
         </div>
       </nav>
+      {cartOpen ? <Cart setCartOpen={setCartOpen} /> : null}
     </header>
   );
 }
