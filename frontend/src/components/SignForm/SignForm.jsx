@@ -75,6 +75,9 @@ export default function SignForm(props) {
         navigate(location.state?.from || "/items");
       });
     }
+    if (user.status === "update succeeded") {
+      waiting(1000).then(() => (window.location.href = "/sign-in"));
+    }
   }, [user.status]);
 
   useEffect(() => {
