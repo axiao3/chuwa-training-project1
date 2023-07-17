@@ -45,6 +45,9 @@
   border-radius: 0.2rem;
   display: flex;
   align-items: center;
+  width: 5rem;
+  height: 2rem;
+  margin-right: 3%;
 }
 
 .add-button > * {
@@ -61,4 +64,5 @@
 
 .edit-button {
   border: var(--var-font-color) solid 1px;
+  width: 5rem;
 }

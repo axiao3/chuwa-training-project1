@@ -31,17 +31,35 @@ export default function ItemDetailPage() {
     <div className="item-detail-page">
       <h2>Products Detail</h2>
       <div className="item-detail-container">
-        <img src={oneItem.link} style={{ height: "30%", width: "30%" }}></img>
-        <p className="item-name"> {oneItem.name} </p>
-        <p className="item-price">${oneItem.price}</p>
-        <AddButton
-          itemId={id}
-          className="item-detail-item"
-          style={{ width: "10%" }}
-        />
-        {user.user.type === "admin" ? (
-          <EditButton itemId={oneItem._id} />
-        ) : null}
+        <img src={oneItem.link} className="item-detail-img"></img>
+        <div className="item-detail-vertical">
+          <div className="item-detial-info">
+            <p className="item-detail-text">{oneItem.category}</p>
+            <h3 className="item-detail-name"> {oneItem.name} </h3>
+            <div className="item-detail-horizontal">
+              <h3 className="item-detail-price">${oneItem.price}</h3>
+              {oneItem.quantity <= 0 ? (
+                <div className="item-detail-outOfStock">Out of Stock</div>
+              ) : null}
+            </div>
+            <p className="item-detail-text">{oneItem.description}</p>
+          </div>
+          <div className="item-detail-actions">
+            {oneItem.quantity <= 0 ? (
+              <AddButton
+                itemId={id}
+                className="item-detail-add"
+                disable={true}
+              />
+            ) : (
+              <AddButton itemId={id} className="item-detail-add" />
+            )}
+
+            {user.user.type === "admin" ? (
+              <EditButton itemId={oneItem._id} className="item-detail-edit" />
+            ) : null}
+          </div>
+        </div>
       </div>
     </div>
   );
