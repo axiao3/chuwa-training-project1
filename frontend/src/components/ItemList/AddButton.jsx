@@ -4,12 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { cartDecrementAction, cartIncrementAction } from "../../app/cartSlice";
 
 export default function AddButton(props) {
-  //props.quantity,props.itemId
+  //props.itemId
   const cart = useSelector((state) => state.cart.cart);
+  const item = useSelector((state) => state.items.items)[props.itemId];
   const dispatch = useDispatch();
 
   const handleAdd = () => {
-    dispatch(cartIncrementAction({ itemId: props.itemId, quantity: 1 }));
+    console.log(item, cart[props.itemId]);
+    const addedQuantity = cart[props.itemId]
+      ? cart[props.itemId].quantity + 1
+      : 1;
+    if (addedQuantity <= item.quantity)
+      dispatch(cartIncrementAction({ itemId: props.itemId, quantity: 1 }));
+    else alert(`Max Stock of ${item.name} is ${item.quantity}`);
   };
 
   const handleRemove = () => {
