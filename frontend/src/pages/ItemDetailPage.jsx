@@ -31,7 +31,9 @@ export default function ItemDetailPage() {
     <div className="item-detail-page">
       <h2>Products Detail</h2>
       <div className="item-detail-container">
-        <img src={oneItem.link} className="item-detail-img"></img>
+        <div className="item-detail-imgContainer">
+          <img src={oneItem.link} className="item-detail-img"></img>
+        </div>
         <div className="item-detail-vertical">
           <div className="item-detial-info">
             <p className="item-detail-text">{oneItem.category}</p>

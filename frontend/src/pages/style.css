@@ -136,6 +136,12 @@
   background: var(--var-secondary-color);
 }
 
+@media (max-width: 800px) {
+  .item-detail-container {
+    flex-direction: column;
+  }
+}
+
 .item-detail-vertical {
   display: flex;
   flex-wrap: wrap;
@@ -184,10 +190,14 @@
   width: 50%;
   height: 15%;
 }
+.item-detail-imgContainer {
+  height: 40%;
+  width: 40%;
+}
 
 .item-detail-img {
-  height: 50%;
-  width: 500px;
+  height: 100%;
+  width: 100%;
   margin-bottom: 10%;
 }
 
