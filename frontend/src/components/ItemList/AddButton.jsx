@@ -10,7 +10,7 @@ export default function AddButton(props) {
   const dispatch = useDispatch();
 
   const handleAdd = () => {
-    console.log(item, cart[props.itemId]);
+    console.log(666,props.itemId, item, cart[props.itemId]);
     const addedQuantity = cart[props.itemId]
       ? cart[props.itemId].quantity + 1
       : 1;
