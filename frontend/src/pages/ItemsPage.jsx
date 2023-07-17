@@ -6,19 +6,17 @@ import { getItemsAmountAction } from "../app/itemsSlice";
 import Sort from "../components/ItemList/Sort";
 import CreateButton from "../components/ItemList/CreateButton";
 import ItemsList from "../components/ItemList/ItemsList";
-import { useNavigate } from "react-router-dom";
 
 export default function ItemsPage() {
   const user = useSelector((state) => state.user.user);
-  const navigate = useNavigate();
-  useEffect(()=>{
+
+  useEffect(() => {
     if (!Object.keys(user).length) {
-      // window.location.href = "/sign-in";
-      navigate("/sign-in");
+      window.location.href = "/sign-in";
       return null;
     }
-  },[user])
-  
+  }, [user]);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getItemsAmountAction());

@@ -33,8 +33,7 @@ export const fetchOneItemAction = createAsyncThunk(
     try {
       const item = await getOneItem(data); //where to get object id?
       // thunkAPI.dispatch(removeError());
-      console.log("item returned in itemsSlice, fetchoneaction: ");
-      console.log(item);
+      console.log("item returned in itemsSlice, fetchoneaction: ",item);
       return item; //fetched 4 times
     } catch (error) {
       const { message } = error;
@@ -49,7 +48,6 @@ export const getItemsAmountAction = createAsyncThunk(
   async (thunkAPI) => {
     try {
       const amount = await getItemsAmount();
-      console.log("amount here", amount);
       // thunkAPI.dispatch(removeError());
       return amount;
     } catch (error) {
@@ -78,7 +76,8 @@ const itemsSlice = createSlice({
     //fetchOne
     builder.addCase(fetchOneItemAction.fulfilled, (state, action) => {
       state.status = "succeeded"; //keep or need to change to fetchone succeeded?
-      state.items = action.payload;
+      //state.items = action.payload;
+      state.items = { ...state.items, [action.payload._id]: action.payload };
     });
     builder.addCase(fetchOneItemAction.rejected, (state, action) => {
       state.status = "failed"; //keep or need to change to fetchone failed?
