@@ -14,9 +14,8 @@ export default function SignForm(props) {
   const navigate = useNavigate();
   const location = useLocation();
   const user = useSelector((state) => state.user);
-  if (Object.keys(user.user).length) {
-    navigate(location.state?.from || "/items");
-  }
+  useEffect(() => {}, [user]);
+
   const dispatch = useDispatch();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -30,8 +29,8 @@ export default function SignForm(props) {
     e.preventDefault();
     if (!emailWarning && !passwordWarning) {
       if (props.type === "Sign In") {
-        dispatch(
-          signInAction({ email: email, password: password, userType: userType })
+        dispatch(signInAction({ email: email, password: password })).then(() =>
+          dispatch(fetchCartAction())
         );
       } else if (!userTypeWarning && props.type === "Sign Up") {
         dispatch(
@@ -50,15 +49,14 @@ export default function SignForm(props) {
   useEffect(() => {
     if (user.status !== "idle") setActionWarning(user.status);
     if (user.status === "Sign up succeeded") {
-      waiting(1500).then(() => (window.location.href = "/sign-in"));
+      waiting(1000).then(() => (window.location.href = "/sign-in"));
     }
     if (user.status === "Sign in succeeded") {
       waiting(1500).then(() => {
-        dispatch(fetchCartAction());
         navigate(location.state?.from || "/items");
       });
     }
-  }, [user.status]);
+  }, [user]);
 
   useEffect(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

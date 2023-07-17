@@ -1,15 +1,23 @@
 header {
-  background: var(--var-primary-color);
-  padding: 0 4rem;
   z-index: 999;
 }
 
 nav {
+  background: var(--var-primary-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 48px;
   gap: 2vw;
+  width: auto;
+}
+
+nav:first-child {
+  padding-left: 1rem;
+}
+
+nav:last-child {
+  padding-right: 1rem;
 }
 
 nav * {
@@ -65,12 +73,10 @@ nav p {
   :root {
     font-size: 14px;
   }
-  header {
-    padding: 0 2rem;
-    padding-bottom: 1rem;
-  }
+
   nav {
     flex-wrap: wrap;
+    padding-bottom: 1rem;
     height: auto;
   }
   .hidden {
@@ -84,4 +90,15 @@ nav p {
   .nav-item:nth-child(2) {
     order: 2;
   }
+}
+
+/*----------Cart----------*/
+.cart {
+  z-index: 999;
+  background: white;
+
+  position: absolute;
+  right: 0;
+
+  min-width: 400px;
 }

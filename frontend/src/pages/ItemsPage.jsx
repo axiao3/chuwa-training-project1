@@ -6,13 +6,19 @@ import { getItemsAmountAction } from "../app/itemsSlice";
 import Sort from "../components/ItemList/Sort";
 import CreateButton from "../components/ItemList/CreateButton";
 import ItemsList from "../components/ItemList/ItemsList";
+import { useNavigate } from "react-router-dom";
 
 export default function ItemsPage() {
   const user = useSelector((state) => state.user.user);
-  if (!Object.keys(user).length) {
-    window.location.href = "/sign-in";
-    return null;
-  }
+  const navigate = useNavigate();
+  useEffect(()=>{
+    if (!Object.keys(user).length) {
+      // window.location.href = "/sign-in";
+      navigate("/sign-in");
+      return null;
+    }
+  },[user])
+  
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getItemsAmountAction());
@@ -20,7 +26,7 @@ export default function ItemsPage() {
   const items = useSelector((state) => state.items);
 
   const [sort, setSort] = useState(0);
-  const [currentPage, setCurrentPage] = useState(items.amount);
+  const [currentPage, setCurrentPage] = useState(0);
   const handlePageChange = (selected) => {
     setCurrentPage(selected.selected);
   };
@@ -48,7 +54,7 @@ export default function ItemsPage() {
       </div>
       <ItemsList sort={sort} currentPage={currentPage} />
       <ReactPaginate
-        pageCount={Math.ceil(items.amount / 10)}
+        pageCount={Math.max(1, Math.ceil(items.amount / 10))}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         onPageChange={handlePageChange}

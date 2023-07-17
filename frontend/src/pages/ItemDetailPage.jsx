@@ -6,6 +6,7 @@ import { cartIncrementAction, cartDecrementAction } from "../app/cartSlice";
 import AddButton from "../components/ItemList/AddButton";
 import EditButton from "../components/ItemList/EditButton";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function ItemDetailPage() {
   const dispatch = useDispatch();
@@ -14,10 +15,19 @@ export default function ItemDetailPage() {
 
   console.log("user in itemDetailPage: ", user.user, user.user.type);
 
-  if (!Object.keys(user.user).length) {
-    window.location.href = "/sign-in";
-    return null;
-  }
+  const navigate = useNavigate();
+  // if (!Object.keys(user.user).length) {
+  //   // window.location.href = "/sign-in";
+  //   navigate("/sign-in");
+  //   return null;
+  // }
+  useEffect(() => {
+    if (!Object.keys(user).length) {
+      // window.location.href = "/sign-in";
+      navigate("/sign-in");
+      return null;
+    }
+  }, [user]);
 
   //user: cart/item/user
   const { id } = useParams();
