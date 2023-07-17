@@ -10,7 +10,7 @@ export default function ItemDetailPage() {
   const user = useSelector((state) => state.user.user);
   const { id } = useParams();
   const oneItem = useSelector((state) => state.items.items);
-  console.log("user in itemDetailPage: ", user.user, user.user.type);
+  console.log("user in itemDetailPage: ", user.user, user.type);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function ItemDetailPage() {
       window.location.href = "/sign-in";
       return null;
     }
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     dispatch(fetchOneItemAction(id));
