@@ -35,9 +35,9 @@ export default function ItemDetailPage() {
         <div className="item-detail-vertical">
           <div className="item-detial-info">
             <p className="item-detail-text">{oneItem.category}</p>
-            <h3 className="item-detail-name"> {oneItem.name} </h3>
+            <h2 className="item-detail-name"> {oneItem.name} </h2>
             <div className="item-detail-horizontal">
-              <h3 className="item-detail-price">${oneItem.price}</h3>
+              <h2 className="item-detail-price">${oneItem.price}</h2>
               {oneItem.quantity <= 0 ? (
                 <div className="item-detail-outOfStock">Out of Stock</div>
               ) : null}
@@ -50,6 +50,7 @@ export default function ItemDetailPage() {
                 itemId={id}
                 className="item-detail-add"
                 disable={true}
+                // style={{ pointerEvents: "none" }}
               />
             ) : (
               <AddButton itemId={id} className="item-detail-add" />
