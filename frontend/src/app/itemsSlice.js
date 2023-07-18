@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getItemsList, getOneItem, getItemsAmount } from "../services/item";
+import { getItemsList, getOneItem, getItemsAmount, createItem, editItem } from "../services/item";
 // import { removeError, addError } from "./errorSlice";
 
 const initialState = {
@@ -7,6 +8,38 @@ const initialState = {
   amount: 0,
   status: "idle",
 };
+
+export const createItemAction = createAsyncThunk(
+  "items/createItem",
+  async (data, thunkAPI) => {
+    try {
+      const { user_id, name, description, category, price, quantity, link } = data;
+      const newItem = await createItem(user_id, name, description, category, price, quantity, link);
+      // thunkAPI.dispatch(removeError());
+      return newItem;
+    } catch (error) {
+      const { message } = error;
+      // thunkAPI.dispatch(addError(message));
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const editItemAction = createAsyncThunk(
+  "items/editItem",
+  async (data, thunkAPI) => {
+    try {
+      const { user_id, name, description, category, price, quantity, link } = data;
+      const editedItem = await editItem(user_id, name, description, category, price, quantity, link);
+      // thunkAPI.dispatch(removeError());
+      return editedItem;
+    } catch (error) {
+      const { message } = error;
+      // thunkAPI.dispatch(addError(message));
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 
 export const fetchItemsAction = createAsyncThunk(
   "items/fetchItems",
@@ -63,6 +96,28 @@ const itemsSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(createItemAction.fulfilled, (state, action) => {
+      state.status = "create succeeded";
+      state.items = { ...state.items, [action.payload._id]: action.payload };
+    });
+    builder.addCase(createItemAction.rejected, (state, action) => {
+      state.status = "create failed";
+    });
+    builder.addCase(createItemAction.pending, (state, action) => {
+      state.status = "create pending";
+    });
+
+    builder.addCase(editItemAction.fulfilled, (state, action) => {
+      state.status = "edit succeeded";
+      state.items[action.payload._id] = action.payload;
+    });
+    builder.addCase(editItemAction.rejected, (state, action) => {
+      state.status = "edit failed";
+    });
+    builder.addCase(editItemAction.pending, (state, action) => {
+      state.status = "edit pending";
+    });
+
     builder.addCase(fetchItemsAction.fulfilled, (state, action) => {
       state.status = "succeeded";
       state.items = action.payload;

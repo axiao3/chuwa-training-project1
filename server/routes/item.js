@@ -4,8 +4,7 @@ const { getList, getOne, getAmount, createItem, editItem } = require("../handler
 const { checkAuthentication } = require("../middleware/checkAuthentication");
 const { checkUserExists } = require("../middleware/checkUserExists");
 // router.use(checkAuthentication);
-router.get(
-  "/get-list/:sort/:page",
+router.get("/get-list/:sort/:page",
   checkAuthentication,
   checkUserExists,
   getList
