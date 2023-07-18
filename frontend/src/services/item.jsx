@@ -83,7 +83,6 @@ export function getItemsList(sort, page) {
 
 // getOneItem
 export function getOneItem(id) {
-  console.log(id);
   return new Promise((resolve, reject) => {
     axios
       .get(`${apiUrl}/item/get-one/${id}`, {
@@ -93,7 +92,6 @@ export function getOneItem(id) {
       })
       .then((response) => {
         resolve(response.data);
-        console.log(response.data);
       })
       .catch((err) => {
         console.log(err);

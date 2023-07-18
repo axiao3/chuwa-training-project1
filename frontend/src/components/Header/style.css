@@ -1,7 +1,3 @@
-header {
-  z-index: 999;
-}
-
 nav {
   background: var(--var-primary-color);
   display: flex;
