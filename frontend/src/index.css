@@ -6,6 +6,9 @@
   --var-bg-color: #f9fafb;
   --var-button-color: #5049e5;
   --var-font-color: #cccccc;
+
+  --var-detail-primary-color: #535353;
+  --var-detail-secondary-color: #6b7280;
 }
 
 body {

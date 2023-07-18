@@ -11,7 +11,7 @@ import { fetchCartAction } from "../../app/cartSlice";
 import { logOutUser } from "../../app/userSlice";
 import Cart from "../Cart/Cart";
 
-export default function Header() {
+export default function Header(props) {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.user);
   const [cartOpen, setCartOpen] = useState(false);
@@ -33,12 +33,25 @@ export default function Header() {
     window.location.href = "/sign-in";
   };
 
+  const handleCart = () => {
+    if (Object.keys(user).length > 0) {
+      setCartOpen((prevCartOpen) => !prevCartOpen);
+      props.setBlur((prevBlur) => !prevBlur);
+    }
+  };
+
   return (
     <header>
       <nav>
         <p
           className="nav-item"
-          style={{ fontWeight: "bold", fontSize: "1.5rem" }}
+          style={{
+            cursor: "pointer",
+            margin: "0",
+            fontWeight: "bold",
+            fontSize: "1.5rem",
+          }}
+          onClick={() => (window.location.href = "/items")}
         >
           M<span className="hidden">anagement</span>
           <span style={{ marginLeft: "0.2rem", fontSize: "0.8rem" }}>
@@ -68,13 +81,13 @@ export default function Header() {
             </button>
           )}
 
-          <button onClick={() => setCartOpen((prevCartOpen) => !prevCartOpen)}>
+          <button onClick={handleCart}>
             <FontAwesomeIcon icon={faShoppingCart} />
             <p>${cart.totalPrice ?? 0.0}</p>
           </button>
         </div>
       </nav>
-      {cartOpen ? <Cart setCartOpen={setCartOpen} /> : null}
+      {cartOpen ? <Cart setCartOpen={handleCart} /> : null}
     </header>
   );
 }

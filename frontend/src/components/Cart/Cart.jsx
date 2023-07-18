@@ -3,6 +3,7 @@ import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
 import CartSummary from "./CartSummary";
 import Coupon from "./Coupon";
+import CartItems from "./CartItems";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -19,11 +20,11 @@ export default function Cart(props) {
           {Object.keys(cart).length}
           {")"}
         </p>
-        <button className="close" onClick={()=>props.setCartOpen(false)}>
+        <button className="close" onClick={() => props.setCartOpen(false)}>
           <FontAwesomeIcon icon={faTimes} />
         </button>
       </div>
-      {/* <CartItems/> */}
+      <CartItems />
       <Coupon setCoupon={setCoupon} />
       <CartSummary coupon={coupon} />
     </div>
