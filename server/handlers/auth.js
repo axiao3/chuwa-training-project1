@@ -13,7 +13,7 @@ exports.signup = async function (req, res, next) {
   try {
     let user = await db.User.create(req.body);
     let { email, type, id } = user;
-    let token = jwt.sign({ email }, process.env.JWT_SECRET_KEY);
+    let token = jwt.sign({ id, email, type }, process.env.JWT_SECRET_KEY);
     return res.status(200).json({
       id,
       email,
@@ -40,7 +40,7 @@ exports.signin = async function (req, res, next) {
     let isMatch = await bcrypt.compare(req.body.password, password);
     if (isMatch) {
       // Generate JWT Token
-      let token = jwt.sign({ email, type }, process.env.JWT_SECRET_KEY);
+      let token = jwt.sign({ id, email, type }, process.env.JWT_SECRET_KEY);
       return res.status(200).json({
         email,
         isMatch,

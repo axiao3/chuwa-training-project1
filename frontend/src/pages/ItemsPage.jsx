@@ -39,6 +39,8 @@ export default function ItemsPage() {
     [currentPage]
   );
 
+  console.log("current user: ", user)
+
   return (
     <div className="items-page">
       <div className="title-row">

@@ -1,17 +1,27 @@
 import axios from "axios";
 const apiUrl = "http://localhost:8080";
 
-export function createItem(user_id, name, description, category, price, quantity, link) {
+export function createItem(
+  user_id,
+  name,
+  description,
+  category,
+  price,
+  quantity,
+  link
+) {
+  console.log("token sending: ", localStorage.getItem("token"));
   return new Promise((resolve, reject) => {
     axios
-      .post(`${apiUrl}/item`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-        body: {
-          user_id, name, description, category, price, quantity, link
+      .post(
+        `${apiUrl}/item`,
+        { user_id, name, description, category, price, quantity, link },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
         }
-      })
+      )
       .then((response) => {
         resolve(response.data);
       })
@@ -22,17 +32,26 @@ export function createItem(user_id, name, description, category, price, quantity
   });
 }
 
-export function editItem(user_id, name, description, category, price, quantity, link) {
+export function editItem(
+  item_id,
+  name,
+  description,
+  category,
+  price,
+  quantity,
+  link
+) {
   return new Promise((resolve, reject) => {
     axios
-      .put(`${apiUrl}/item`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-        body: {
-          user_id, name, description, category, price, quantity, link
+      .put(
+        `${apiUrl}/item`,
+        { item_id, name, description, category, price, quantity, link },
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
         }
-      })
+      )
       .then((response) => {
         resolve(response.data);
       })

@@ -10,7 +10,7 @@ export default function NewItem(props) {
   const [category, setCategory] = useState(props.category); // "" 
   const [price, setPrice] = useState(props.price); // ""
   const [quantity, setQuantity] = useState(props.quantity); // ""
-  const [imageUrl, setImageUrl] = useState(props.imageUrl); // "http://"
+  const [link, setLink] = useState(props.link); // "http://"
   const [imagePreview, setImagePreview] = useState(props.imagePreview); // "default-image-link"
   const [isPreview, setIsPreview] = useState(props.isPreview); // false
 
@@ -35,12 +35,12 @@ export default function NewItem(props) {
   };
 
   const handleLinkChange = (e) => {
-    setImageUrl(e.target.value);
+    setLink(e.target.value);
   };
 
   const handleUpload = (e) => {
     e.preventDefault();
-    setImagePreview(imageUrl);
+    setImagePreview(link);
     setIsPreview(true);
   };
 
@@ -48,7 +48,7 @@ export default function NewItem(props) {
     <div className={styles.app_container}>
       {/* <div className={styles.title}>Create Product</div> */}
       <div className={styles.title}>{props.title}</div>
-      <form className={styles.form} onSubmit={() => props.onSubmit(name, description, category, price, quantity, imageUrl)}>
+      <form className={styles.form} onSubmit={(e) => props.onSubmit(e, name, description, category, price, quantity, link)}>
         <div>
           <label htmlFor="product_name">Product Name</label>
           <input
@@ -80,11 +80,11 @@ export default function NewItem(props) {
               required
             >
               <option value="">--choose an option--</option>
-              <option value="category1">Home & DIY</option>
-              <option value="category2">Devices & Electronics</option>
-              <option value="category3">Kids & Baby</option>
-              <option value="category4">Sports & Fanshop</option>
-              <option value="category5">Groceries & Stores</option>
+              <option value="Home & DIY">Home & DIY</option>
+              <option value="Devices & Electronics">Devices & Electronics</option>
+              <option value="Kids & Baby">Kids & Baby</option>
+              <option value="Sports & Fanshop">Sports & Fanshop</option>
+              <option value="Groceries & Stores">Groceries & Stores</option>
             </select>
           </div>
           <div>
@@ -114,7 +114,7 @@ export default function NewItem(props) {
             <input
               type="text"
               id="image"
-              value={imageUrl}
+              value={link}
               onChange={handleLinkChange}
             />
             <button onClick={handleUpload}>Upload</button>

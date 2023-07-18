@@ -3,6 +3,7 @@ const router = express.Router({ mergeParams: true });
 const { getList, getOne, getAmount, createItem, editItem } = require("../handlers/item");
 const { checkAuthentication } = require("../middleware/checkAuthentication");
 const { checkUserExists } = require("../middleware/checkUserExists");
+const { ensureCorrectUser } = require("../middleware/checkCorrectUser");
 // router.use(checkAuthentication);
 router.get("/get-list/:sort/:page",
   checkAuthentication,
@@ -11,7 +12,7 @@ router.get("/get-list/:sort/:page",
 );
 router.get("/get-one/:id", checkAuthentication, checkUserExists, getOne);
 router.get("/get-amount", checkAuthentication, checkUserExists, getAmount);
-router.post('/', createItem);
+router.post('/', ensureCorrectUser, createItem);
 router.put('/', editItem);
 
 module.exports = router;

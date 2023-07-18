@@ -8,7 +8,7 @@ export default function EditButton(props) {
   const navigate = useNavigate();
 
   const handleEdit = () => {
-    navigate(`/edit/${props.itemId}`);
+    navigate(`/items/${props.itemId}/edit`);
   };
 
   return (

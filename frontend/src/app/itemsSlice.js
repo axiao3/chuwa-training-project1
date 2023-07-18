@@ -29,8 +29,8 @@ export const editItemAction = createAsyncThunk(
   "items/editItem",
   async (data, thunkAPI) => {
     try {
-      const { user_id, name, description, category, price, quantity, link } = data;
-      const editedItem = await editItem(user_id, name, description, category, price, quantity, link);
+      const { item_id, name, description, category, price, quantity, link } = data;
+      const editedItem = await editItem(item_id, name, description, category, price, quantity, link);
       // thunkAPI.dispatch(removeError());
       return editedItem;
     } catch (error) {

@@ -10,7 +10,7 @@ export function signUp(email, password, type) {
         type: type,
       })
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data); 
         resolve({
           status: true,
         });

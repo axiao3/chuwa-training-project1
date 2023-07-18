@@ -3,6 +3,8 @@ import Reused from "./pages/Reused";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import CreateItem from "./pages/createItemPage";
+import EditItem from "./pages/EditItemPage";
 import ItemsPage from "./pages/ItemsPage";
 import ItemDetailPage from "./pages/ItemDetailPage";
 import ErrorPage from "./pages/ErrorPage";
@@ -23,7 +25,8 @@ function App() {
             />
             <Route path="/items" element={<ItemsPage />} />
             <Route path="/items/:id" element={<ItemDetailPage />} />
-            <Route path="/items/create" element={<div>create product</div>} />
+            <Route path="/items/create" element={<CreateItem />} />
+            <Route path="/items/:id/edit" element={<EditItem />} />
             <Route path="/error" element={<ErrorPage />} />
           </Routes>
         </Router>

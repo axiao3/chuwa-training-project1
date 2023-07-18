@@ -60,7 +60,7 @@ exports.getOne = async function (req, res, next) {
 exports.createItem = async function (req, res, next) {
   try {
     const item = await Item.create({
-      owner: req.params.user_id,
+      owner: req.body.user_id,
       name: req.body.name,
       description: req.body.description,
       category: req.body.category,
@@ -76,7 +76,7 @@ exports.createItem = async function (req, res, next) {
 
 exports.editItem = async (req, res, next) => {
   try {
-    const updatedItem = await Item.findByIdAndUpdate(req.body.product_id, req.body, {new: true});
+    const updatedItem = await Item.findByIdAndUpdate(req.body.item_id, req.body, {new: true});
     return res.status(200).json(updatedItem);
   } catch (err) {
     return next(err);

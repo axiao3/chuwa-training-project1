@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import NewItem from "../components/NewItem/NewItem";
@@ -8,29 +9,31 @@ export default function CreateItem() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
+  const itemsSlice = useSelector((state) => state.items);
+  console.log("itemsSlice.items: ", itemsSlice.items);
 
-  const handleSubmit = (
-    name,
-    description,
-    category,
-    price,
-    quantity,
-    imageUrl
-  ) => {
+  const handleSubmit = (e, name, description, category, price, quantity, link) => {
+    e.preventDefault();
     dispatch(
       createItemAction({
-        user_id: user.user.id,
+        user_id: user.id,
         name,
         description,
         category,
         price,
         quantity,
-        imageUrl,
+        link,
       })
-    ).then(() => {
-      navigate("/items");
-    });
+    );
   };
+
+  useEffect(() => {
+    // console.log("itemState.status: ", itemState.status);
+    if (itemsSlice.status === "create succeeded") {
+      alert("Creat Item success");
+      navigate("/items");
+    }
+  }, [itemsSlice.status, navigate]);
 
   return (
     <NewItem
@@ -41,7 +44,7 @@ export default function CreateItem() {
       category=""
       price=""
       quantity=""
-      imageUrl="http://"
+      link="http://"
       imagePreview="default-image-link"
       isPreview={false}
       onSubmit={handleSubmit}
