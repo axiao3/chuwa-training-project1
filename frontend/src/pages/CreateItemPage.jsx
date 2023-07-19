@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import NewItem from "../components/NewItem/NewItem";
 import { createItemAction } from "../app/itemsSlice";
 
@@ -12,6 +13,10 @@ export default function CreateItem() {
   const itemsSlice = useSelector((state) => state.items);
   console.log("itemsSlice.items: ", itemsSlice.items);
 
+  if (!Object.keys(user).length) {
+    return <Navigate to="/sign-in" state={{ from: '/items/create' }} />;
+  }
+  
   const handleSubmit = (e, name, description, category, price, quantity, link) => {
     e.preventDefault();
     dispatch(
@@ -26,6 +31,10 @@ export default function CreateItem() {
       })
     );
   };
+
+  useEffect(() => {
+    console.log("user: ", user);
+  }, []);
 
   useEffect(() => {
     // console.log("itemState.status: ", itemState.status);

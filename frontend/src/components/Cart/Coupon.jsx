@@ -1,10 +1,13 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Coupon(props) {
   const [coupon, setCoupon] = useState();
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     props.setCoupon(coupon);
   };
   return (

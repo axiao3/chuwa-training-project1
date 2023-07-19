@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import "./style.css";
@@ -29,39 +28,37 @@ export default function ItemDetailPage() {
   console.log("item returned into detail page: ", oneItem[id]);
 
   return oneItem[id] ? (
-    <div className="item-detail-page">
+    <div className="detail-page">
       <h2>Products Detail</h2>
-      <div className="item-detail-container">
-        <div className="item-detail-imgContainer">
+      <div className="detail-container">
+        <div>
           <img src={oneItem[id]?.link} className="item-detail-img"></img>
         </div>
-        <div className="item-detail-vertical">
-          <div className="item-detial-info">
-            <p className="item-detail-text">{oneItem[id]?.category}</p>
-            <h2 className="item-detail-name"> {oneItem[id]?.name} </h2>
-            <div className="item-detail-horizontal">
-              <h2 className="item-detail-price">${oneItem[id]?.price}</h2>
-              {oneItem[id]?.quantity <= 0 ? (
-                <div className="item-detail-outOfStock">Out of Stock</div>
-              ) : null}
-            </div>
-            <p className="item-detail-text">{oneItem[id]?.description}</p>
+        <div className="info-container">
+          <p className="secondary">{oneItem[id]?.category}</p>
+          <h2 className="primary"> {oneItem[id]?.name} </h2>
+          <div>
+            <h2>${oneItem[id]?.price}</h2>
+            {oneItem[id]?.quantity <= 0 ? (
+              <div className="warning">Out of Stock</div>
+            ) : null}
           </div>
-          <div className="item-detail-actions">
+          <div className="description secondary">
+            {oneItem[id]?.description}
+          </div>
+
+          <div>
             {oneItem[id]?.quantity <= 0 ? (
               <AddButton
                 itemId={id}
-                className="item-detail-add"
                 disable={true}
                 // style={{ pointerEvents: "none" }}
               />
             ) : (
-              <AddButton itemId={id} className="item-detail-add" />
+              <AddButton itemId={id} />
             )}
 
-            {user.type === "admin" ? (
-              <EditButton itemId={id} className="item-detail-edit" />
-            ) : null}
+            {user.type === "admin" ? <EditButton itemId={id} /> : null}
           </div>
         </div>
       </div>
