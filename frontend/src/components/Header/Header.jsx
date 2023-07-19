@@ -8,30 +8,36 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartAction } from "../../app/cartSlice";
-import logOut from "../../services/LogOut";
+import { logOutUser } from "../../app/userSlice";
+import Cart from "../Cart/Cart";
 
-export default function Header() {
+export default function Header(props) {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
-  const user = useSelector((state) => state.user);
-  const [display, setDisplay] = useState("");
+  const { user, isAuthenticated } = useSelector((state) => state.user);
+  const [cartOpen, setCartOpen] = useState(false);
 
   useEffect(() => {
-    if (Object.keys(user.user).length !== 0) dispatch(fetchCartAction());
+    if (Object.keys(user).length > 0) {
+      dispatch(fetchCartAction());
+    }
   }, []);
 
-  const handleSignIn = () => {
-    if (localStorage.getItem("email") && localStorage.getItem("token")) {
-      setDisplay("Log Out");
-      document.getElementById("display").innerHTML = display;
-      logOut(localStorage.getItem("email"), localStorage.getItem("token"));
-      console.log("sign in -> log out");
-    } else {
-      setDisplay("Sign In");
-      document.getElementById("display").innerHTML = display;
-    }
+  const cart = useSelector((state) => state.cart);
 
+  const handleSignIn = () => {
     window.location.href = "/sign-in";
+  };
+
+  const handleLogOut = () => {
+    dispatch(logOutUser());
+    window.location.href = "/sign-in";
+  };
+
+  const handleCart = () => {
+    if (Object.keys(user).length > 0) {
+      setCartOpen((prevCartOpen) => !prevCartOpen);
+      props.setBlur((prevBlur) => !prevBlur);
+    }
   };
 
   return (
@@ -39,7 +45,13 @@ export default function Header() {
       <nav>
         <p
           className="nav-item"
-          style={{ fontWeight: "bold", fontSize: "1.5rem" }}
+          style={{
+            cursor: "pointer",
+            margin: "0",
+            fontWeight: "bold",
+            fontSize: "1.5rem",
+          }}
+          onClick={() => (window.location.href = "/items")}
         >
           M<span className="hidden">anagement</span>
           <span style={{ marginLeft: "0.2rem", fontSize: "0.8rem" }}>
@@ -53,8 +65,8 @@ export default function Header() {
           </button>
         </form>
         <div className="nav-item">
-          {localStorage.getItem("token") ? (
-            <button onClick={handleSignIn}>
+          {isAuthenticated ? (
+            <button onClick={handleLogOut}>
               <FontAwesomeIcon icon={faUser} />
               <p className="hidden" id="display">
                 Log Out
@@ -69,12 +81,13 @@ export default function Header() {
             </button>
           )}
 
-          <button>
+          <button onClick={handleCart}>
             <FontAwesomeIcon icon={faShoppingCart} />
             <p>${cart.totalPrice ?? 0.0}</p>
           </button>
         </div>
       </nav>
+      {cartOpen ? <Cart setCartOpen={handleCart} /> : null}
     </header>
   );
 }

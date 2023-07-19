@@ -28,7 +28,6 @@ exports.cartFetchAll = async function (req, res, next) {
         return item;
       })
     );
-    console.log(cartItems);
     res.status(200).json(cartItems);
   } catch (err) {
     return next({
@@ -66,10 +65,8 @@ exports.cartDecrement = async function (req, res, next) {
       { $inc: { quantity: -quantity } }
     );
     let reducedItem = await cartFetchOne(userId, itemId);
-    console.log(reducedItem);
     if (reducedItem.quantity <= 0)
       await Cart.deleteOne({ user: userId, item: itemId });
-    console.log(reducedItem);
     res.status(200).json(reducedItem);
   } catch (err) {
     return next({
