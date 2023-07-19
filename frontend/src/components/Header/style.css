@@ -65,14 +65,14 @@ nav p {
   white-space: nowrap;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 580px) {
   :root {
     font-size: 14px;
   }
 
   nav {
     flex-wrap: wrap;
-    padding-bottom: 1rem;
+    padding: 1rem;
     height: auto;
   }
   .hidden {

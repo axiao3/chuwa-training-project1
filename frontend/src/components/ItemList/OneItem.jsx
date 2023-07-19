@@ -16,7 +16,7 @@ export default function OneItem(props) {
   };
 
   return (
-    <div className="item">
+    <div className="item" style={{ flex: 1 }}>
       <img src={props.item.link} onClick={handleClick}></img>
       <p className="item-name"> {props.item.name} </p>
       <p className="item-price">${props.item.price}</p>

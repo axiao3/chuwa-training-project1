@@ -56,7 +56,7 @@
     margin-top: 20px; /* adjust as needed */
   }
   
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 800px) {
     .categoryPriceGroup {
       flex-direction: column;
     }

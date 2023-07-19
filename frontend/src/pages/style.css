@@ -44,7 +44,7 @@
   padding: 0.5rem;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 800px) {
   :root {
     font-size: 14px;
   }
@@ -89,7 +89,6 @@
   margin-top: 20px;
   margin-bottom: 0;
 }
-
 
 .pagination li {
   display: inline-block;
@@ -231,7 +230,7 @@
 
 /*------------------Error Page--------------------*/
 
-@media (max-width: 640px) {
+@media (max-width: 800px) {
   .title-row {
     flex-direction: column;
   }
