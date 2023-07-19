@@ -5,9 +5,11 @@ import React, { useState } from "react";
 import styles from "./style.module.css";
 
 export default function NewItem(props) {
+  console.log("props: ", props);
+
   const [name, setName] = useState(props.name); // ""
   const [description, setDescription] = useState(props.description); // ""
-  const [category, setCategory] = useState(props.category); // "" 
+  const [category, setCategory] = useState(props.category); // ""
   const [price, setPrice] = useState(props.price); // ""
   const [quantity, setQuantity] = useState(props.quantity); // ""
   const [link, setLink] = useState(props.link); // "http://"
@@ -48,7 +50,12 @@ export default function NewItem(props) {
     <div className={styles.app_container}>
       {/* <div className={styles.title}>Create Product</div> */}
       <div className={styles.title}>{props.title}</div>
-      <form className={styles.form} onSubmit={(e) => props.onSubmit(e, name, description, category, price, quantity, link)}>
+      <form
+        className={styles.form}
+        onSubmit={(e) =>
+          props.onSubmit(e, name, description, category, price, quantity, link)
+        }
+      >
         <div>
           <label htmlFor="product_name">Product Name</label>
           <input
@@ -81,7 +88,9 @@ export default function NewItem(props) {
             >
               <option value="">--choose an option--</option>
               <option value="Home & DIY">Home & DIY</option>
-              <option value="Devices & Electronics">Devices & Electronics</option>
+              <option value="Devices & Electronics">
+                Devices & Electronics
+              </option>
               <option value="Kids & Baby">Kids & Baby</option>
               <option value="Sports & Fanshop">Sports & Fanshop</option>
               <option value="Groceries & Stores">Groceries & Stores</option>

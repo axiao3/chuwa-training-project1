@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -83,7 +85,7 @@ export default function Header(props) {
 
           <button onClick={handleCart}>
             <FontAwesomeIcon icon={faShoppingCart} />
-            <p>${cart.totalPrice ?? 0.0}</p>
+            <p>${(cart.totalPrice).toFixed(2) ?? 0.0}</p>
           </button>
         </div>
       </nav>

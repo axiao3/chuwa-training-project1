@@ -18,7 +18,7 @@ function App() {
       <div className={"app-content" + (blur ? " blur" : "")}>
         <Router>
           <Routes>
-            <Route path="/" element={<div>home</div>} />
+            <Route path="/" element={<ItemsPage />} />
             <Route path="/sign-up" element={<Reused type="Sign Up" />} />
             <Route path="/sign-in" element={<Reused type="Sign In" />} />
             <Route

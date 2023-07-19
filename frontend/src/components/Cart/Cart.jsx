@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +11,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 export default function Cart(props) {
   const cart = useSelector((state) => state.cart.cart);
-  const [coupon, setCoupon] = useState();
+  // const [coupon, setCoupon] = useState();
 
   return (
     <div className="cart">
@@ -25,8 +27,8 @@ export default function Cart(props) {
         </button>
       </div>
       <CartItems />
-      <Coupon setCoupon={setCoupon} />
-      <CartSummary coupon={coupon} />
+      {/* <Coupon setCoupon={setCoupon} /> */}
+      <CartSummary />
     </div>
   );
 }

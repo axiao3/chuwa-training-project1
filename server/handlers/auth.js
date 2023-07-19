@@ -36,6 +36,12 @@ exports.signin = async function (req, res, next) {
     let user = await db.User.findOne({
       email: req.body.email,
     });
+    if (!user) {
+      return next({
+        status: 400,
+        message: "Invalid Email / Password.",
+      });
+    } 
     let { email, password, type, id } = user;
     let isMatch = await bcrypt.compare(req.body.password, password);
     if (isMatch) {

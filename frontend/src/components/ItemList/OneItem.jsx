@@ -7,7 +7,7 @@ import AddButton from "./AddButton";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 export default function OneItem(props) {
-  const user = useSelector((state) => state.user);
+  const {user} = useSelector((state) => state.user);
 
   const navigate = useNavigate();
 
