@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -8,14 +10,14 @@ export default function Password(props) {
   const handleTogglePassword = () => setShowPassword(!showPassword);
   return (
     <div className="password-input">
-      <label htmlFor="password">Password</label>
+      <label htmlFor="password">{props.title}</label>
       <div>
         <input
           type={showPassword ? "text" : "password"}
-          id="password"
+          id={props.id}
           onChange={(e) => props.handlePassword(e)}
         />
-        <button onClick={handleTogglePassword}>
+        <button type="button" onClick={handleTogglePassword}>
           <FontAwesomeIcon icon={faEye} />
         </button>
       </div>

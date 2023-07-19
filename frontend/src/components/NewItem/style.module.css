@@ -1,0 +1,68 @@
+.app_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;  /* change as needed */
+    margin: auto;
+  }
+  
+  .title {
+    text-align: left;
+    margin-bottom: 20px; /* adjust as needed */
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .inputGroup {
+    margin-bottom: 20px; /* adjust as needed */
+  }
+  
+  .categoryPriceGroup,
+  .quantityLinkGroup {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .categoryPriceGroup .inputGroup,
+  .quantityLinkGroup .quantityGroup,
+  .quantityLinkGroup .linkGroup {
+    width: 48%; /* This leaves some space between two children */
+  }
+  
+  .quantityLinkGroup .quantityGroup {
+    width: 28%; /* Change according to your need */
+  }
+  
+  .quantityLinkGroup .linkGroup {
+    width: 68%; /* Change according to your need */
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .imagePreview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    margin: auto;
+  }
+  
+  .submitButton {
+    align-self: flex-start;
+    margin-top: 20px; /* adjust as needed */
+  }
+  
+  @media screen and (max-width: 600px) {
+    .categoryPriceGroup {
+      flex-direction: column;
+    }
+    
+    .categoryPriceGroup .inputGroup {
+      width: 100%;
+    }
+  }
+  

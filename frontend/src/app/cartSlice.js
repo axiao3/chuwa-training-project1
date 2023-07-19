@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getCart, cartDecrement, cartIncrement } from "../services/cart";
 // import { removeError, addError } from "./errorSlice";
@@ -21,7 +22,7 @@ export const fetchCartAction = createAsyncThunk(
         newList[item.item] = item;
       });
 
-      return { cart: newList, totalPrice: totalPrice };
+      return { cart: newList, totalPrice: (totalPrice == "-0") ? 0 : totalPrice};
     } catch (error) {
       const { message } = error;
       // thunkAPI.dispatch(addError(message));

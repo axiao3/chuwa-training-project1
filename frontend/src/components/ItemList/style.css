@@ -1,3 +1,15 @@
+/*---------------ItemsList---------------*/
+.items-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  background: var(--var-secondary-color);
+}
+/*---------------ItemsList---------------*/
+
+/*---------------OneItem---------------*/
 .item {
   height: auto;
   border: solid var(--var-font-color) 1px;
@@ -21,7 +33,8 @@
 }
 
 .item-name {
-  color: var(--var-font-color);
+  overflow: hidden;
+  color: var(--var-detail-primary-color);
 }
 
 .item-price {
@@ -38,27 +51,57 @@
   flex: 1;
   padding: 0.2rem 0;
 }
+/*---------------OneItem---------------*/
 
-/*---------------AddButton---------------*/
-.add-button {
+/*---------------AddButton, CreateButton---------------*/
+.add-button,
+.create-button {
   background: var(--var-button-color);
   border-radius: 0.2rem;
   display: flex;
   align-items: center;
+  box-sizing: border-box;
+  height: 2rem;
+}
+
+.create-button {
+  padding: 0 1rem;
+  color: white;
 }
 
 .add-button > * {
   flex: 1;
-  margin: 0;
-  padding: 0;
   color: white;
 }
 
 .add-button p {
   text-align: center;
 }
+
+.info-container div .add-button,
+.info-container div .edit-button {
+  flex-basis: 30%;
+  height: 3rem;
+}
+
 /*---------------AddButton---------------*/
 
 .edit-button {
   border: var(--var-font-color) solid 1px;
+}
+
+/*---------------Sort---------------*/
+.sort {
+  padding: 0.5rem;
+  height: fit-content;
+}
+
+/*---------------Sort---------------*/
+@media (max-width: 640px) {
+  .items-container {
+    flex-direction: column;
+  }
+  .item {
+    flex-basis: 1;
+  }
 }

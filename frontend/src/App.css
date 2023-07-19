@@ -6,6 +6,30 @@
   min-height: calc(100vh - 48px - 64px);
   height: auto;
   width: 100%;
-  position: relative;
-  padding: 2rem 0;
+  filter: brightness(1);
+  transition: filter 0.2s ease-in-out;
+}
+
+header {
+  z-index: 999;
+  margin: 0;
+}
+
+footer {
+  height: 64px;
+  width: 100%;
+  padding: 0px 64px;
+  background: var(--var-primary-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* position: absolute;
+  bottom: 0; */
+  z-index: 999;
+  box-sizing: border-box;
+}
+
+.blur {
+  filter: brightness(0.7);
+  transition: filter 0.2s ease-in-out;
 }

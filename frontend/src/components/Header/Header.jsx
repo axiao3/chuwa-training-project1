@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,14 +11,15 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCartAction } from "../../app/cartSlice";
 import { logOutUser } from "../../app/userSlice";
+import Cart from "../Cart/Cart";
 
-export default function Header() {
+export default function Header(props) {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.user);
+  const [cartOpen, setCartOpen] = useState(false);
 
   useEffect(() => {
     if (Object.keys(user).length > 0) {
-      console.log(666);
       dispatch(fetchCartAction());
     }
   }, []);
@@ -32,12 +35,25 @@ export default function Header() {
     window.location.href = "/sign-in";
   };
 
+  const handleCart = () => {
+    if (Object.keys(user).length > 0) {
+      setCartOpen((prevCartOpen) => !prevCartOpen);
+      props.setBlur((prevBlur) => !prevBlur);
+    }
+  };
+
   return (
     <header>
       <nav>
         <p
           className="nav-item"
-          style={{ fontWeight: "bold", fontSize: "1.5rem" }}
+          style={{
+            cursor: "pointer",
+            margin: "0",
+            fontWeight: "bold",
+            fontSize: "1.5rem",
+          }}
+          onClick={() => (window.location.href = "/items")}
         >
           M<span className="hidden">anagement</span>
           <span style={{ marginLeft: "0.2rem", fontSize: "0.8rem" }}>
@@ -67,12 +83,13 @@ export default function Header() {
             </button>
           )}
 
-          <button>
+          <button onClick={handleCart}>
             <FontAwesomeIcon icon={faShoppingCart} />
-            <p>${cart.totalPrice ?? 0.0}</p>
+            <p>${(cart.totalPrice).toFixed(2) ?? 0.0}</p>
           </button>
         </div>
       </nav>
+      {cartOpen ? <Cart setCartOpen={handleCart} /> : null}
     </header>
   );
 }

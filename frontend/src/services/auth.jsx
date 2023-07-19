@@ -10,7 +10,7 @@ export function signUp(email, password, type) {
         type: type,
       })
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data); 
         resolve({
           status: true,
         });
@@ -31,8 +31,6 @@ export function signIn(email, password, type) {
         type: type,
       })
       .then((response) => {
-        console.log(response.data);
-        alert("Signed in successfully!");
         resolve({
           email: email,
           token: response.data.token,
@@ -41,7 +39,6 @@ export function signIn(email, password, type) {
         });
       })
       .catch((err) => {
-        alert("Wrong email /password.");
         reject({ status: false, message: err.response.data.error.message });
       });
   });
@@ -53,4 +50,38 @@ export function logOut(key, value) {
     localStorage.clear();
   }
   console.log("log out: " + key + value);
+}
+
+export function checkExist(email) {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`${apiUrl}/exists`, {
+        email: email
+      })
+      .then((response) => {
+        console.log(response.data);
+        resolve(response.data);
+      })
+      .catch((err) => {
+        reject({ status: false, message: err.response.data.error.message });
+      });
+  });
+}
+
+export function updatePassword(email, previous, current) {
+  return new Promise((resolve, reject) => {
+    axios
+      .put(`${apiUrl}/password`, {
+        email: email,
+        previous: previous,
+        current: current
+      })
+      .then((response) => {
+        console.log(response.data);
+        resolve(response.data);
+      })
+      .catch((err) => {
+        reject({ status: false, message: err.response.data.error.message });
+      });
+  });
 }

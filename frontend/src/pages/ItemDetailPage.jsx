@@ -1,48 +1,67 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOneItemAction } from "../app/itemsSlice";
-import { cartIncrementAction, cartDecrementAction } from "../app/cartSlice";
 import AddButton from "../components/ItemList/AddButton";
 import EditButton from "../components/ItemList/EditButton";
 import { useParams } from "react-router-dom";
 
 export default function ItemDetailPage() {
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  const oneItem = useSelector((state) => state.items.items);
-
-  console.log("user in itemDetailPage: ", user.user, user.user.type);
-
-  if (!Object.keys(user.user).length) {
-    window.location.href = "/sign-in";
-    return null;
-  }
-
-  //user: cart/item/user
+  const user = useSelector((state) => state.user.user);
   const { id } = useParams();
+  const oneItem = useSelector((state) => state.items.items);
+  console.log("user in itemDetailPage: ", user.user, user.type);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!Object.keys(user).length) {
+      window.location.href = "/sign-in";
+      return null;
+    }
+  }, []);
+
   useEffect(() => {
     dispatch(fetchOneItemAction(id));
   }, []);
 
-  console.log("item returned into detail page: ", oneItem);
+  console.log("item returned into detail page: ", oneItem[id]);
 
-  return (
-    <div className="item-detail-page">
+  return oneItem[id] ? (
+    <div className="detail-page">
       <h2>Products Detail</h2>
-      <div className="item-detail-container">
-        <img src={oneItem.link} style={{ height: "30%", width: "30%" }}></img>
-        <p className="item-name"> {oneItem.name} </p>
-        <p className="item-price">${oneItem.price}</p>
-        <AddButton
-          itemId={id}
-          className="item-detail-item"
-          style={{ width: "10%" }}
-        />
-        {user.user.type === "admin" ? (
-          <EditButton itemId={oneItem._id} />
-        ) : null}
+      <div className="detail-container">
+        <div>
+          <img src={oneItem[id]?.link} className="item-detail-img"></img>
+        </div>
+        <div className="info-container">
+          <p className="secondary">{oneItem[id]?.category}</p>
+          <h2 className="primary"> {oneItem[id]?.name} </h2>
+          <div>
+            <h2>${oneItem[id]?.price}</h2>
+            {oneItem[id]?.quantity <= 0 ? (
+              <div className="warning">Out of Stock</div>
+            ) : null}
+          </div>
+          <div className="description secondary">
+            {oneItem[id]?.description}
+          </div>
+
+          <div>
+            {oneItem[id]?.quantity <= 0 ? (
+              <AddButton
+                itemId={id}
+                disable={true}
+                // style={{ pointerEvents: "none" }}
+              />
+            ) : (
+              <AddButton itemId={id} />
+            )}
+
+            {user.type === "admin" ? <EditButton itemId={id} /> : null}
+          </div>
+        </div>
       </div>
     </div>
-  );
+  ) : null;
 }
