@@ -119,6 +119,12 @@
 /*------------------Item Page--------------------*/
 
 /*------------------Item Detail Page--------------------*/
+.detail-page {
+  background-color: var(--var-bg-color);
+  height: 100%;
+  padding: 2rem 0;
+}
+
 .detail-page > * {
   margin: 1rem 3rem;
 }
