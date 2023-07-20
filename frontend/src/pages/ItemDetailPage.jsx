@@ -5,18 +5,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchOneItemAction } from "../app/itemsSlice";
 import AddButton from "../components/ItemList/AddButton";
 import EditButton from "../components/ItemList/EditButton";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 export default function ItemDetailPage() {
   const user = useSelector((state) => state.user.user);
   const { id } = useParams();
+  const navigate = useNavigate();
   const oneItem = useSelector((state) => state.items.items);
   console.log("user in itemDetailPage: ", user.user, user.type);
 
   const dispatch = useDispatch();
   useEffect(() => {
     if (!Object.keys(user).length) {
-      window.location.href = "/sign-in";
+      // window.location.href = "/sign-in";
+      navigate("/sign-in", { state: { from: `/items/${id}` } });
       return null;
     }
   }, []);
