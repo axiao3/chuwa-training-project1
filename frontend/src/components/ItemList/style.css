@@ -12,7 +12,7 @@
 .items-container > * {
   display: flex;
   gap: 1rem;
-  justify-content: center;
+
   align-items: center;
 }
 /*---------------ItemsList---------------*/
@@ -24,6 +24,7 @@
   box-sizing: border-box;
 
   width: calc(20% - 1rem);
+  flex-basis: calc(20% - 1rem);
 
   padding: 0.5rem;
   border-radius: 0.2rem;
@@ -107,9 +108,10 @@
 }
 
 /*---------------Sort---------------*/
-@media (max-width: 640px) {
+@media (max-width: 800px) {
   .items-container > * {
     flex-direction: column;
+    justify-content: center;
   }
   .item {
     flex: 1;

@@ -78,14 +78,23 @@
   color: var(--var-button-color);
 }
 
-.cart-container .add-button,
-.cart-container .remove-button {
+.cart-container .add-button > * {
+  color: black;
+}
+
+.cart-container .add-button {
+  background-color: var(--var-secondary-color);
+  border: solid var(--var-font-color) 1px;
+}
+
+.cart-container .add-button {
   flex-basis: 30%;
 }
 
 .cart-container .remove-button {
   color: var(--var-detail-primary-color);
   text-decoration: underline;
+  padding-right: 0;
 }
 
 /*--------------------One Item---------------------*/
