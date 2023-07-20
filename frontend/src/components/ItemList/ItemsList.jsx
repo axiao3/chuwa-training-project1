@@ -14,13 +14,22 @@ export default function ItemsList(props) {
   }, [props.sort, props.currentPage]);
   const items = useSelector((state) => state.items.items);
 
-  return (
+  return items ? (
     <div className="items-container">
-      {items
-        ? Object.entries(items).map(([_id, item]) => (
-            <OneItem key={_id} item={item} />
-          ))
-        : null}
+      <div>
+        {Object.entries(items)
+          .slice(0, 5)
+          .map(([key, item]) => (
+            <OneItem key={key} item={item} />
+          ))}
+      </div>
+      <div>
+        {Object.entries(items)
+          .slice(5)
+          .map(([key, item]) => (
+            <OneItem key={key} item={item} />
+          ))}
+      </div>
     </div>
-  );
+  ) : null;
 }

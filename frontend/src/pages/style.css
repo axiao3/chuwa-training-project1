@@ -44,7 +44,7 @@
   padding: 0.5rem;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 800px) {
   :root {
     font-size: 14px;
   }
@@ -90,7 +90,6 @@
   margin-bottom: 0;
 }
 
-
 .pagination li {
   display: inline-block;
   border: solid var(--var-font-color) 0.5px;
@@ -119,6 +118,12 @@
 /*------------------Item Page--------------------*/
 
 /*------------------Item Detail Page--------------------*/
+.detail-page {
+  background-color: var(--var-bg-color);
+  height: 100%;
+  padding: 2rem 0;
+}
+
 .detail-page > * {
   margin: 1rem 3rem;
 }
@@ -225,7 +230,7 @@
 
 /*------------------Error Page--------------------*/
 
-@media (max-width: 640px) {
+@media (max-width: 800px) {
   .title-row {
     flex-direction: column;
   }

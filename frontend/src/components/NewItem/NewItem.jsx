@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import style from "./style.module.css";
 
 export default function NewItem(props) {
-  console.log("props: ", props);
+  // console.log("props: ", props);
 
   const [name, setName] = useState(props.name); // ""
   const [description, setDescription] = useState(props.description); // ""

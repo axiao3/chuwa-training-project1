@@ -34,7 +34,7 @@ export default function EditItem() {
     // console.log("itemState.status: ", itemState.status);
     if (itemStatus === "edit succeeded") {
       alert("Edit Item success");
-      navigate("/items");
+      window.location.href = "/items";
     }
   }, [itemStatus, navigate]);
 

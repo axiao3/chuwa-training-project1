@@ -6,12 +6,13 @@ footer * {
 footer div > * {
   margin: 0 0.5rem;
 }
-@media (max-width: 640px) {
+@media (max-width: 800px) {
   footer {
     flex-direction: column-reverse;
     flex-wrap: wrap;
     height: auto;
-    padding: 0 2rem;
+    padding: 1rem 2rem;
+    gap:1rem;
   }
 
   .footer-item:nth-child(2) {
