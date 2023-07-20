@@ -141,9 +141,14 @@ export default function NewItem(props) {
           {!isPreview ? <p className={style.app_img_text}>Image Preview!</p> : null}
         </div>
 
-        <button className={style.app_submit_button} type="submit">
-          {props.button}
-        </button>
+        <div className={style.submit_button_container}>
+          <button className={style.app_submit_button} type="submit">
+            {props.button}
+          </button>
+          {props.title === "Edit Product" ? <button className={style.app_delete_button} type="button" onClick={props.onClick}>
+            Delete
+          </button> : null}
+        </div>
       </form>
     </div>
   );

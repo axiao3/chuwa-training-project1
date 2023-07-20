@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import NewItem from "../components/NewItem/NewItem";
 import { editItemAction } from "../app/itemsSlice";
-import { fetchOneItemAction } from "../app/itemsSlice";
+import { fetchOneItemAction, deleteItemAction } from "../app/itemsSlice";
 
 export default function EditItem() {
   const dispatch = useDispatch();
@@ -34,30 +34,22 @@ export default function EditItem() {
     if (itemStatus === "edit succeeded") {
       alert("Edit Item success");
       window.location.href = "/items"; // refresh items page update cart
+    } else if (itemStatus === "delete succeeded") {
+      alert("Delete Item success");
+      window.location.href = "/items";
     }
   }, [itemStatus, navigate]);
 
-  const handleSubmit = (
-    e,
-    name,
-    description,
-    category,
-    price,
-    quantity,
-    link
-  ) => {
+  const handleSubmit = (e, name, description, category, price, quantity, link ) => {
     e.preventDefault();
     dispatch(
-      editItemAction({
-        item_id: id,
-        name,
-        description,
-        category,
-        price,
-        quantity,
-        link,
-      })
+      editItemAction({user_id: user.id, item_id: id, name, description, category, price, quantity, link})
     );
+  };
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    dispatch(deleteItemAction({user_id: user.id, item_id: id}));
   };
 
   return items[id] ? (
@@ -74,6 +66,7 @@ export default function EditItem() {
         imagePreview={items[id].link}
         isPreview={true}
         onSubmit={handleSubmit}
+        onClick={handleDelete}
       />
     ) : (
       <Navigate to="/items" />

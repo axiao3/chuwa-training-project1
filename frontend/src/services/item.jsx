@@ -10,7 +10,7 @@ export function createItem(
   quantity,
   link
 ) {
-  console.log("token sending: ", localStorage.getItem("token"));
+  // console.log("token sending: ", localStorage.getItem("token"));
   return new Promise((resolve, reject) => {
     axios
       .post(
@@ -33,6 +33,7 @@ export function createItem(
 }
 
 export function editItem(
+  user_id,
   item_id,
   name,
   description,
@@ -45,13 +46,42 @@ export function editItem(
     axios
       .put(
         `${apiUrl}/item`,
-        { item_id, name, description, category, price, quantity, link },
+        {
+          user_id,
+          item_id,
+          name,
+          description,
+          category,
+          price,
+          quantity,
+          link,
+        },
         {
           headers: {
             Authorization: localStorage.getItem("token"),
           },
         }
       )
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
+      });
+  });
+}
+
+export function deleteItem(user_id, item_id) {
+  // console.log("token sending: ", localStorage.getItem("token"));
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(`${apiUrl}/item/${item_id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+        data: { user_id, item_id }, // Wrap data inside the 'data' property for delete method
+      })
       .then((response) => {
         resolve(response.data);
       })

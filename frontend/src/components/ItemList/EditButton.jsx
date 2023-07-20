@@ -13,7 +13,7 @@ export default function EditButton(props) {
 
   return (
     <button className="edit-button" onClick={handleEdit}>
-      Edit
+      Edit / Delete
     </button>
   );
 }

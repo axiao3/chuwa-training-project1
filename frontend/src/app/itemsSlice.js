@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getItemsList, getOneItem, getItemsAmount, createItem, editItem } from "../services/item";
+import { getItemsList, getOneItem, getItemsAmount, createItem, editItem, deleteItem } from "../services/item";
 // import { removeError, addError } from "./errorSlice";
 
 const initialState = {
@@ -29,8 +29,8 @@ export const editItemAction = createAsyncThunk(
   "items/editItem",
   async (data, thunkAPI) => {
     try {
-      const { item_id, name, description, category, price, quantity, link } = data;
-      const editedItem = await editItem(item_id, name, description, category, price, quantity, link);
+      const { user_id, item_id, name, description, category, price, quantity, link } = data;
+      const editedItem = await editItem(user_id, item_id, name, description, category, price, quantity, link);
       // thunkAPI.dispatch(removeError());
       return editedItem;
     } catch (error) {
@@ -83,6 +83,22 @@ export const getItemsAmountAction = createAsyncThunk(
       const amount = await getItemsAmount();
       // thunkAPI.dispatch(removeError());
       return amount;
+    } catch (error) {
+      const { message } = error;
+      // thunkAPI.dispatch(addError(message));
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const deleteItemAction = createAsyncThunk(
+  "items/deleteItem",
+  async (data, thunkAPI) => {
+    try {
+      const { user_id, item_id } = data;
+      const deletedItem = await deleteItem(user_id, item_id);
+      // thunkAPI.dispatch(removeError());
+      return deletedItem;
     } catch (error) {
       const { message } = error;
       // thunkAPI.dispatch(addError(message));
@@ -150,6 +166,18 @@ const itemsSlice = createSlice({
     });
     builder.addCase(getItemsAmountAction.pending, (state, action) => {
       state.status = "pending"; //keep or need to change to fetchone pending?
+    });
+
+    builder.addCase(deleteItemAction.fulfilled, (state, action) => {
+      state.status = "delete succeeded";
+      delete state.items[action.payload._id];
+      // state.items[action.payload._id] = action.payload;
+    });
+    builder.addCase(deleteItemAction.rejected, (state, action) => {
+      state.status = "delete failed";
+    });
+    builder.addCase(deleteItemAction.pending, (state, action) => {
+      state.status = "delete pending";
     });
   },
 });

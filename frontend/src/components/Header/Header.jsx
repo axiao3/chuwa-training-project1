@@ -17,6 +17,7 @@ export default function Header(props) {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.user);
   const [cartOpen, setCartOpen] = useState(false);
+  const [product, setProduct] = useState("");
 
   useEffect(() => {
     if (Object.keys(user).length > 0) {
@@ -42,6 +43,10 @@ export default function Header(props) {
     }
   };
 
+  const handleProduct = (e) => {
+    setProduct(e.target.value);
+  }
+
   return (
     <header>
       <nav>
@@ -61,7 +66,7 @@ export default function Header(props) {
           </span>
         </p>
         <form className="nav-item">
-          <input type="text" />
+          <input type="text" value={product} onChange={handleProduct}/>
           <button type="submit">
             <FontAwesomeIcon icon={faSearch} />
           </button>

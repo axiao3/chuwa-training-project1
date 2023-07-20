@@ -28,6 +28,7 @@ nav form {
 
 nav form input {
   padding-right: 2rem;
+  color: black;
   flex-grow: 1;
   height: 2rem;
   box-sizing: border-box;

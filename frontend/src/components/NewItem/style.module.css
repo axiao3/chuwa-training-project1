@@ -9,7 +9,7 @@
   font-size: 24px;
   font-weight: bold;
   color: #333 ;
-  margin: 3rem 0 1rem 0;
+  margin: 0 0 1rem 0;
   text-align: left;
 }
 
@@ -113,7 +113,12 @@
   margin: 20px auto;
 }
 
-.app_submit_button {
+.submit_button_container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.app_submit_button, .app_delete_button {
   height: 40px;
   width: 25%; 
   margin-top: 1rem;
@@ -124,7 +129,11 @@
   padding: 0 10px 0 10px;
   border-radius: 5px;
   cursor: pointer;
-  left:0;
+  /* left:0; */
+}
+
+.app_delete_button {
+  /* margin-left: 1rem; */
 }
 
 @media screen and (max-width: 768px) {
@@ -156,7 +165,7 @@
   }
 
   /* Adjusting submit button width */
-  .app_submit_button {
-    width: 100%;
+  .app_submit_button, .app_delete_button {
+    width: 50%;
   }
 }
