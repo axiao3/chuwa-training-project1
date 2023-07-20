@@ -26,15 +26,14 @@ export default function EditItem() {
     if (!isAuthenticated) {
       navigate("/sign-in", { state: { from: `/items/${id}/edit` } });
       // return <Navigate to="/sign-in" state={{ from: `/items/${id}/edit` }} />;   // useEffect no return
-    } 
+    }
     dispatch(fetchOneItemAction(id));
   }, []);
 
   useEffect(() => {
-    // console.log("itemState.status: ", itemState.status);
     if (itemStatus === "edit succeeded") {
       alert("Edit Item success");
-      window.location.href = "/items";
+      window.location.href = "/items"; // refresh items page update cart
     }
   }, [itemStatus, navigate]);
 
@@ -62,18 +61,22 @@ export default function EditItem() {
   };
 
   return items[id] ? (
-    <NewItem
-      title="Edit Product"
-      button="Edit Product"
-      name={items[id].name}
-      description={items[id].description}
-      category={items[id].category}
-      price={items[id].price}
-      quantity={items[id].quantity}
-      link={items[id].link}
-      imagePreview={items[id].link}
-      isPreview={true}
-      onSubmit={handleSubmit}
-    />
+    (user.type === "admin" && items[id].owner === user.id) ? (
+      <NewItem
+        title="Edit Product"
+        button="Edit Product"
+        name={items[id].name}
+        description={items[id].description}
+        category={items[id].category}
+        price={items[id].price}
+        quantity={items[id].quantity}
+        link={items[id].link}
+        imagePreview={items[id].link}
+        isPreview={true}
+        onSubmit={handleSubmit}
+      />
+    ) : (
+      <Navigate to="/items" />
+    )
   ) : null;
 }

@@ -60,7 +60,7 @@ export default function ItemDetailPage() {
               <AddButton itemId={id} />
             )}
 
-            {user.type === "admin" ? <EditButton itemId={id} /> : null}
+            {(user.type === "admin" && oneItem[id].owner === user.id) ? <EditButton itemId={id} /> : null}
           </div>
         </div>
       </div>
