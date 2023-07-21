@@ -133,13 +133,16 @@ export function getOneItem(id) {
   });
 }
 
-export function getItemsAmount() {
+export function getItemsAmount(keywords) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${apiUrl}/item/get-amount`, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
+        params: {
+          keywords: keywords
+        }
       })
       .then((response) => {
         resolve(response.data);

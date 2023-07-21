@@ -12,6 +12,8 @@ import ItemsList from "../components/ItemList/ItemsList";
 
 export default function ItemsPage() {
   const user = useSelector((state) => state.user.user);
+  const [searchParams] = useSearchParams();
+  const productName = searchParams.get('name');
 
   useEffect(() => {
     if (!Object.keys(user).length) {
@@ -22,7 +24,7 @@ export default function ItemsPage() {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getItemsAmountAction());
+    dispatch(getItemsAmountAction(productName));
   }, []);
   const items = useSelector((state) => state.items);
 
@@ -42,8 +44,7 @@ export default function ItemsPage() {
 
   console.log("current user: ", user);
 
-  const [searchParams] = useSearchParams();
-  const productName = searchParams.get('name');
+
 
   return (
     <div className="items-page">

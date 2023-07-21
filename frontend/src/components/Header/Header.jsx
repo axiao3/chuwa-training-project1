@@ -47,7 +47,8 @@ export default function Header(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate(`/items?name=${productName}`);
+    // navigate(`/items?name=${productName}`);
+    window.location.href = `/items?name=${productName}`;
   }
 
   return (

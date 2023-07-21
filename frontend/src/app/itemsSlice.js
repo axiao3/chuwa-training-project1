@@ -78,9 +78,10 @@ export const fetchOneItemAction = createAsyncThunk(
 
 export const getItemsAmountAction = createAsyncThunk(
   "items/getAmount",
-  async (thunkAPI) => {
+  async (data, thunkAPI) => {
     try {
-      const amount = await getItemsAmount();
+      const keywords = data;
+      const amount = await getItemsAmount(keywords);
       // thunkAPI.dispatch(removeError());
       return amount;
     } catch (error) {

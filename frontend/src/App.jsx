@@ -3,7 +3,7 @@ import Reused from "./pages/Reused";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
-import CreateItem from "./pages/createItemPage";
+import CreateItem from "./pages/CreateItemPage";
 import EditItem from "./pages/EditItemPage";
 import ItemsPage from "./pages/ItemsPage";
 import ItemDetailPage from "./pages/ItemDetailPage";

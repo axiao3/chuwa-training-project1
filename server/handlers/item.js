@@ -3,9 +3,28 @@ const Item = require("../models/item");
 const Cart = require("../models/cart");
 const db = require("../models");
 
+// exports.getAmount = async function (req, res, next) {
+//   try {
+//     const rowCount = await Item.countDocuments(); // countDocuments(query);
+//     res.status(200).json(rowCount);
+//   } catch (err) {
+//     return next({
+//       status: 400,
+//       message: err.message,
+//     });
+//   }
+// };
+
 exports.getAmount = async function (req, res, next) {
   try {
-    const rowCount = await Item.countDocuments();
+    const keywords = req.query.keywords; // Get the keywords from the request query parameters
+    const regex = new RegExp(keywords, 'i'); // Create a case-insensitive regular expression from the keywords
+    let rowCount = 0; 
+    if (keywords) {
+      rowCount = await Item.countDocuments({ name: { $regex: regex } });
+    } else {
+      rowCount = await Item.countDocuments();
+    }
     res.status(200).json(rowCount);
   } catch (err) {
     return next({
