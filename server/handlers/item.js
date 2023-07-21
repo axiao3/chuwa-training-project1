@@ -130,6 +130,7 @@ exports.deleteItem = async (req, res, next) => {
     // implement here
     const deletedItem = await Item.findByIdAndRemove(item_id);
     console.log("deletedItem: ", deletedItem);
+
     await Cart.deleteMany({ item: item_id });
     if (!deletedItem) {
       return next({status: 404, message: "Item not found."});

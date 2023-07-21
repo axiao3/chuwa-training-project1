@@ -62,8 +62,8 @@ export default function ItemsPage() {
       <ItemsList sort={sort} currentPage={currentPage} productName={productName} />
       <ReactPaginate
         pageCount={Math.max(1, Math.ceil(items.amount / 10))}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
+        marginPagesDisplayed={2}    
+        pageRangeDisplayed={5}   
         onPageChange={handlePageChange}
         containerClassName="pagination"
         activeClassName="active"

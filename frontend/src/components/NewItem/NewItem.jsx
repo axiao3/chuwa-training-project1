@@ -16,6 +16,8 @@ export default function NewItem(props) {
   const [imagePreview, setImagePreview] = useState(props.imagePreview); // "default-image-link"
   const [isPreview, setIsPreview] = useState(props.isPreview); // false
 
+  // const erroneousObject = undefined;
+
   const handleNameChange = (e) => {
     setName(e.target.value);
   };
@@ -48,6 +50,7 @@ export default function NewItem(props) {
 
   return (
     <div className={style.app_container}>
+      {/* <div>{erroneousObject.nonExistentProperty}</div> */}
       <p className={style.app_title}>{props.title}</p>
       <form 
         className={style.app_form}
