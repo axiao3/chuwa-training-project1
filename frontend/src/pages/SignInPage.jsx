@@ -8,7 +8,7 @@ import waiting from "../utils/waiting";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
-export default function Reused(props) {
+export default function SignInPage() {
   //note: props.type="Sign In" || "Sign Up" || "Forget Password";
   const hyperlink = {
     cursor: "pointer",
@@ -28,42 +28,22 @@ export default function Reused(props) {
 
   return (
     <div className="user-action-container">
-      <p className="title">
-        {props.type === "Sign In"
-          ? "Sign in to your account"
-          : props.type === "Sign Up"
-          ? "Sign up an account"
-          : "Update your password"}
-      </p>
+      <p className="title">Sign in to your account</p>
       <button className="close">
         <FontAwesomeIcon icon={faTimes} />
       </button>
-      {props.type === "Forget Password" ? (
-        <p>Enter your email link, we will send you the recovery link</p>
-      ) : null}
-      <SignForm type={props.type} />
-      {props.type === "Sign In" ? (
-        <div className="bottom">
-          <div>
-            <p>Don't have an account?</p>
-            <p style={hyperlink} onClick={(e) => handleType(e)}>
-              Sign Up
-            </p>
-          </div>
+      <SignForm type="Sign In" />
+      <div className="bottom">
+        <div>
+          <p>Don't have an account?</p>
           <p style={hyperlink} onClick={(e) => handleType(e)}>
-            Forget Password
+            Sign Up
           </p>
         </div>
-      ) : props.type === "Sign Up" ? (
-        <div className="bottom">
-          <div>
-            <p>Already have an account?</p>
-            <p style={hyperlink} onClick={(e) => handleType(e)}>
-              Sign In
-            </p>
-          </div>
-        </div>
-      ) : null}
+        <p style={hyperlink} onClick={(e) => handleType(e)}>
+          Update Password
+        </p>
+      </div>
     </div>
   );
 }

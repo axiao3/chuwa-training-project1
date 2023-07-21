@@ -16,6 +16,8 @@ export default function Password(props) {
           type={showPassword ? "text" : "password"}
           id={props.id}
           onChange={(e) => props.handlePassword(e)}
+          onBlur={props.onBlur}
+          required
         />
         <button type="button" onClick={handleTogglePassword}>
           <FontAwesomeIcon icon={faEye} />

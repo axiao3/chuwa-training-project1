@@ -1,5 +1,5 @@
 import axios from "axios";
-const apiUrl = "http://localhost:8080";
+const apiUrl = "http://localhost:8080/item";
 
 export function createItem(
   user_id,
@@ -14,7 +14,7 @@ export function createItem(
   return new Promise((resolve, reject) => {
     axios
       .post(
-        `${apiUrl}/item`,
+        `${apiUrl}`,
         { user_id, name, description, category, price, quantity, link },
         {
           headers: {
@@ -45,7 +45,7 @@ export function editItem(
   return new Promise((resolve, reject) => {
     axios
       .put(
-        `${apiUrl}/item`,
+        `${apiUrl}`,
         {
           user_id,
           item_id,
@@ -76,7 +76,7 @@ export function deleteItem(user_id, item_id) {
   // console.log("token sending: ", localStorage.getItem("token"));
   return new Promise((resolve, reject) => {
     axios
-      .delete(`${apiUrl}/item/${item_id}`, {
+      .delete(`${apiUrl}/${item_id}`, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -95,7 +95,7 @@ export function deleteItem(user_id, item_id) {
 export function getItemsList(sort, page, name) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${apiUrl}/item/get-list/${sort}/${page}`, {
+      .get(`${apiUrl}/get-list/${sort}/${page}`, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -118,7 +118,7 @@ export function getItemsList(sort, page, name) {
 export function getOneItem(id) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${apiUrl}/item/get-one/${id}`, {
+      .get(`${apiUrl}/get-one/${id}`, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
@@ -136,7 +136,7 @@ export function getOneItem(id) {
 export function getItemsAmount(keywords) {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${apiUrl}/item/get-amount`, {
+      .get(`${apiUrl}/get-amount`, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },

@@ -22,21 +22,20 @@ export default function CartSummary() {
 
   return (
     <div className="cart-summary">
-
       <form className="coupon-form" onSubmit={handleSubmit}>
-      <label htmlFor="coupon">Apply Discount Code</label>
-      <div>
-        <input
-          type="text"
-          id="coupon"
-          placeholder="20 DOLLAR OFF"
-          onChange={(e) => {
-            setCoupon(e.target.value);
-          }}
-        ></input>
-        <button type="submit"> Apply</button>
-      </div>
-    </form>
+        <label htmlFor="coupon">Apply Discount Code</label>
+        <div>
+          <input
+            type="text"
+            id="coupon"
+            placeholder="20 DOLLAR OFF"
+            onChange={(e) => {
+              setCoupon(e.target.value);
+            }}
+          ></input>
+          <button type="submit"> Apply</button>
+        </div>
+      </form>
 
       <p>
         <b>Subtotal </b>

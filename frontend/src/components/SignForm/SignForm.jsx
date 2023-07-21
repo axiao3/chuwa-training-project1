@@ -12,7 +12,7 @@ import { fetchCartAction } from "../../app/cartSlice";
 import { signUpAction, signInAction, checkExistAction, updatePasswordAction } from "../../app/userSlice";
 
 export default function SignForm(props) {
-  //note: props.type="Sign In" || "Sign Up" || "Forget Password";
+  //note: props.type="Sign In" || "Sign Up" || "Update Password";
   const navigate = useNavigate();
   const location = useLocation();
   const user = useSelector((state) => state.user);
@@ -26,12 +26,49 @@ export default function SignForm(props) {
   const [emailWarning, setEmailWarning] = useState();
   const [passwordWarning, setPasswordWarning] = useState();
   const [newpasswordWarning, setNewPasswordWarning] = useState();
-  const [userTypeWarning, setUserTypeWarning] = useState();
   const [actionWarning, setActionWarning] = useState();
+
+  const [emailTouched, setEmailTouched] = useState(false);
+  const [passwordTouched, setPasswordTouched] = useState(false);
+  const [newPasswordTouched, setNewPasswordTouched] = useState(false);
+
+  const handleEmailBlur = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setEmailWarning(!emailRegex.test(email) ? "Invalid Email input!" : null);
+    setEmailTouched(true);
+  };
+  
+  const handlePasswordBlur = () => {
+    const passwordRegex = /^(?!.*\s).{8,16}$/;
+    setPasswordWarning(
+      !password || !passwordRegex.test(password)
+        ? "Invalid Password input!"
+        : null
+    );
+    setPasswordTouched(true);
+  };
+
+  const handleNewPasswordBlur = () => {
+    const passwordRegex = /^(?!.*\s).{8,16}$/;
+    setNewPasswordWarning(
+      !newPassword || !passwordRegex.test(newPassword)
+        ? "Invalid Password input!"
+        : null
+    );
+    setNewPasswordTouched(true);
+  };
+
+  const handleEmail = (e) => setEmail(e.target.value);
+
+  const handlePassword = (e) => setPassword(e.target.value);
+
+  const handleNewPassword = (e) => setNewPassword(e.target.value);
+
+  const handleUserType = (user) => setUserType(user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!emailWarning && props.type === "Forget Password") {
+    if (!emailWarning && props.type === "Update Password") {
       if (!user.isEmailExist) {
         dispatch(
           checkExistAction({email: email})
@@ -48,7 +85,7 @@ export default function SignForm(props) {
         dispatch(signInAction({ email: email, password: password })).then(() =>
           dispatch(fetchCartAction())
         );
-      } else if (!userTypeWarning && props.type === "Sign Up") {
+      } else if (userType && props.type === "Sign Up") {
         console.log("sign up statement");
         dispatch(
           signUpAction({ email: email, password: password, userType: userType })
@@ -56,14 +93,6 @@ export default function SignForm(props) {
       } 
     }
   };
-
-  const handleEmail = (e) => setEmail(e.target.value);
-
-  const handlePassword = (e) => setPassword(e.target.value);
-
-  const handleNewPassword = (e) => setNewPassword(e.target.value);
-
-  const handleUserType = (user) => setUserType(user);
 
   useEffect(() => {
     if (user.status !== "idle") setActionWarning(user.status);
@@ -80,40 +109,23 @@ export default function SignForm(props) {
     }
   }, [user.status]);
 
-  useEffect(() => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordRegex = /^(?!.*\s).{8,16}$/; // length 8-16, cannot contain spaces
-    setEmailWarning(!emailRegex.test(email) ? "Invalid Email input!" : null);
-    setPasswordWarning(
-      !password || !passwordRegex.test(password)
-        ? "Invalid Password input!"
-        : null
-    );
-    setNewPasswordWarning(
-      !newPassword || !passwordRegex.test(newPassword)
-        ? "Invalid Password input!"
-        : null
-    );
-    setUserTypeWarning(!userType ? "User type is required!" : null);
-  }, [email, password, newPassword, userType]);
-
   return (
     <form className="user-form" onSubmit={handleSubmit}>
-      <Email handleEmail={handleEmail} warning={emailWarning} />
+      <Email handleEmail={handleEmail} warning={emailTouched ? emailWarning : null} onBlur={handleEmailBlur} />
 
-      {props.type !== "Forget Password" ? (
-        <Password title="Password" id="password" handlePassword={handlePassword} warning={passwordWarning} />
+      {props.type !== "Update Password" ? (
+        <Password title="Password" id="password" handlePassword={handlePassword} warning={passwordTouched ? passwordWarning : null} onBlur={handlePasswordBlur} />
       ) : null}
 
-      {(props.type === "Forget Password" && user.isEmailExist) ? (
+      {(props.type === "Update Password" && user.isEmailExist) ? (
         <>
-        <Password title="Previous Password" id="previous" handlePassword={handlePassword} warning={passwordWarning} />
-        <Password title="Set New Password" id="current" handlePassword={handleNewPassword} warning={newpasswordWarning} />
+        <Password title="Previous Password" id="previous" handlePassword={handlePassword} warning={passwordTouched ? passwordWarning : null} onBlur={handlePasswordBlur} />
+        <Password title="Set New Password" id="current" handlePassword={handleNewPassword} warning={newPasswordTouched ? newpasswordWarning : null} onBlur={handleNewPasswordBlur} />
         </>
       ) : null}  
 
       {props.type === "Sign Up" ? (
-        <UserType handleUserType={handleUserType} warning={userTypeWarning} />
+        <UserType handleUserType={handleUserType}/>
       ) : null}
 
       {actionWarning ? (

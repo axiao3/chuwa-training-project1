@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import OneItem from "../Cart/OneItem";
 
-export default function CartItems(props) {
+export default function CartItems() {
   const cart = useSelector((state) => state.cart.cart);
 
   return (
