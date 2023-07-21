@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import "./style.css";
 import ReactPaginate from "react-paginate";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,7 +40,10 @@ export default function ItemsPage() {
     [currentPage]
   );
 
-  console.log("current user: ", user)
+  console.log("current user: ", user);
+
+  const [searchParams] = useSearchParams();
+  const productName = searchParams.get('name');
 
   return (
     <div className="items-page">
@@ -54,7 +58,7 @@ export default function ItemsPage() {
           {user.type === "admin" ? <CreateButton /> : null}
         </div>
       </div>
-      <ItemsList sort={sort} currentPage={currentPage} />
+      <ItemsList sort={sort} currentPage={currentPage} productName={productName} />
       <ReactPaginate
         pageCount={Math.max(1, Math.ceil(items.amount / 10))}
         marginPagesDisplayed={2}

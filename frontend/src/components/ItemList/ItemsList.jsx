@@ -10,8 +10,8 @@ import { fetchItemsAction } from "../../app/itemsSlice";
 export default function ItemsList(props) {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchItemsAction({ sort: props.sort, page: props.currentPage }));
-  }, [props.sort, props.currentPage]);
+    dispatch(fetchItemsAction({ sort: props.sort, page: props.currentPage, name: props.productName }));
+  }, [props.sort, props.currentPage, props.productName]);
   const items = useSelector((state) => state.items.items);
 
   return items ? (

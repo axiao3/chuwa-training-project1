@@ -45,8 +45,8 @@ export const fetchItemsAction = createAsyncThunk(
   "items/fetchItems",
   async (data, thunkAPI) => {
     try {
-      const { sort, page } = data;
-      const itemsList = await getItemsList(sort, page);
+      const { sort, page, name } = data;
+      const itemsList = await getItemsList(sort, page, name);
       // thunkAPI.dispatch(removeError());
       const newList = {};
       itemsList.forEach((item) => (newList[item._id] = item));

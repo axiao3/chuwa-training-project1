@@ -19,20 +19,28 @@ exports.getList = async function (req, res, next) {
   try {
     const sort = parseInt(req.params.sort);
     const page = parseInt(req.params.page);
+    const name = req.query.name || "";
+
     console.log("---------------------------------------------", page, sort);
+
+    let query = {};
+    if (name) {
+      query.name = new RegExp(name, 'i'); // This will do a case-insensitive search for names containing the provided string
+    }
+
     let items = [];
     if (sort === 0)
-      items = await Item.find({})
+      items = await Item.find(query)
         .sort({ createdAt: -1 })
         .skip(page * 10)
         .limit(10);
     else if (sort === 1)
-      items = await Item.find({})
+      items = await Item.find(query)
         .sort({ price: 1 })
         .skip(page * 10)
         .limit(10);
     else if (sort === -1)
-      items = await Item.find({})
+      items = await Item.find(query)
         .sort({ price: -1 })
         .skip(page * 10)
         .limit(10);

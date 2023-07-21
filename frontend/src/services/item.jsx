@@ -92,13 +92,16 @@ export function deleteItem(user_id, item_id) {
   });
 }
 
-export function getItemsList(sort, page) {
+export function getItemsList(sort, page, name) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${apiUrl}/item/get-list/${sort}/${page}`, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
+        params: {
+          name: name
+        }
       })
       .then((response) => {
         //[{…}, {…}, {…}]

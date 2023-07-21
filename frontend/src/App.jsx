@@ -14,9 +14,9 @@ function App() {
   const [blur, setBlur] = useState(false);
   return (
     <div className="app">
-      <Header setBlur={setBlur}/>
-      <div className={"app-content" + (blur ? " blur" : "")}>
-        <Router>
+      <Router>
+        <Header setBlur={setBlur} />
+        <div className={"app-content" + (blur ? " blur" : "")}>
           <Routes>
             <Route path="/" element={<ItemsPage />} />
             <Route path="/sign-up" element={<Reused type="Sign Up" />} />
@@ -31,11 +31,11 @@ function App() {
             <Route path="/items/:id/edit" element={<EditItem />} />
             <Route path="/error" element={<ErrorPage />} />
           </Routes>
-        </Router>
-      </div>
-      <Footer />
+        </div>
+        <Footer />
+      </Router>
     </div>
-  );
+);
 }
 
 export default App;
