@@ -19,7 +19,6 @@ export default function ItemDetailPage() {
     if (!Object.keys(user).length) {
       // window.location.href = "/sign-in";
       navigate("/sign-in", { state: { from: `/items/${id}` } });
-      return null;
     }
   }, []);
 

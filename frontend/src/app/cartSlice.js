@@ -4,7 +4,7 @@ import { getCart, cartDecrement, cartIncrement } from "../services/cart";
 // import { removeError, addError } from "./errorSlice";
 
 const initialState = {
-  cart: {},
+  cart: {},   // {{id: {}}, {id: {}}, {id: {}}}
   status: "idle",
   totalPrice: 0,
 };
