@@ -26,7 +26,6 @@ export default function Cart(props) {
         </button>
       </div>
       <CartItems />
-      {/* <Coupon setCoupon={setCoupon} /> */}
       <CartSummary />
     </div>
   );

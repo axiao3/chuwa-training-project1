@@ -38,7 +38,7 @@ export default function EditItem() {
       alert("Delete Item success");
       window.location.href = "/items";
     }
-  }, [itemStatus, navigate]);
+  }, [itemStatus]);
 
   const handleSubmit = (e, name, description, category, price, quantity, link ) => {
     e.preventDefault();
