@@ -94,7 +94,7 @@ export default function Header(props) {
 
           <button onClick={handleCart}>
             <FontAwesomeIcon icon={faShoppingCart} />
-            <p>${cart.totalPrice.toFixed(2) ?? 0.0}</p>
+            <p>${cart.totalPrice.toFixed(2) ?? 0.00}</p>
           </button>
         </div>
       </nav>

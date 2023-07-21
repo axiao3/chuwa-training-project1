@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
 import CartSummary from "./CartSummary";
-import Coupon from "./Coupon";
 import CartItems from "./CartItems";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
