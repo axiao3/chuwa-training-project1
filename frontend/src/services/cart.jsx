@@ -1,11 +1,11 @@
 import axios from "axios";
-const apiUrl = "http://localhost:8080";
+const apiUrl = "http://localhost:8080/cart";
 
 export function cartIncrement(itemId, quantity) {
   return new Promise((resolve, reject) => {
     axios
       .post(
-        `${apiUrl}/cart/add`,
+        `${apiUrl}`,
         { itemId: itemId, quantity: quantity },
         {
           headers: { Authorization: localStorage.getItem("token") },
@@ -24,7 +24,7 @@ export function cartIncrement(itemId, quantity) {
 export function cartDecrement(itemId, quantity) {
   return new Promise((resolve, reject) => {
     axios
-      .delete(`${apiUrl}/cart/${itemId}/${quantity}`, {
+      .delete(`${apiUrl}/${itemId}/${quantity}`, {
         headers: { Authorization: localStorage.getItem("token") },
       })
       .then((response) => {
@@ -40,7 +40,7 @@ export function cartDecrement(itemId, quantity) {
 export function getCart() {
   return new Promise((resolve, reject) => {
     axios
-      .get(`${apiUrl}/cart/get-all`, {
+      .get(`${apiUrl}`, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },

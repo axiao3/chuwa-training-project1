@@ -9,8 +9,8 @@ const {
 const { checkAuthentication } = require("../middleware/checkAuthentication");
 const { checkUserExists } = require("../middleware/checkUserExists");
 
-router.get("/get-all", checkAuthentication, checkUserExists, cartFetchAll);
-router.post("/add", checkAuthentication, checkUserExists, cartIncrement); //cart/add
+router.get("/", checkAuthentication, checkUserExists, cartFetchAll);
+router.post("/", checkAuthentication, checkUserExists, cartIncrement); //cart/add
 router.delete(
   "/:itemId/:quantity",
   checkAuthentication,

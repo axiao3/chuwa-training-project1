@@ -5,7 +5,10 @@ import React, { useState, useEffect } from "react";
 export default function UserType(props) {
   const [customer, setCustomer] = useState(false);
   const [admin, setAdmin] = useState(false);
+  const [userTypeTouched, setUserTypeTouched] = useState(false);
+
   const handleToggleType = (e) => {
+    setUserTypeTouched(true);
     if (e.target.id === "customer") {
       setCustomer(!customer);
       setAdmin(false);
@@ -18,6 +21,8 @@ export default function UserType(props) {
     const type = customer ? "customer" : admin ? "admin" : null;
     props.handleUserType(type);
   }, [customer, admin]);
+
+  const warning = (userTypeTouched && !customer && !admin) ? "User type is required!" : null;
 
   return (
     <div className="user-type">
@@ -41,7 +46,7 @@ export default function UserType(props) {
           <label htmlFor="admin">Admin</label>
         </div>
       </div>
-      <p style={{ color: "#FC5A44" }}>{props.warning}</p>
+      <p style={{ color: "#FC5A44" }}>{warning}</p>
     </div>
   );
 }
