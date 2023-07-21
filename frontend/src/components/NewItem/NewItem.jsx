@@ -2,10 +2,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import styles from "./style.module.css";
+import style from "./style.module.css";
 
 export default function NewItem(props) {
-  console.log("props: ", props);
+  // console.log("props: ", props);
 
   const [name, setName] = useState(props.name); // ""
   const [description, setDescription] = useState(props.description); // ""
@@ -47,18 +47,18 @@ export default function NewItem(props) {
   };
 
   return (
-    <div className={styles.app_container}>
-      {/* <div className={styles.title}>Create Product</div> */}
-      <div className={styles.title}>{props.title}</div>
-      <form
-        className={styles.form}
+    <div className={style.app_container}>
+      <p className={style.app_title}>{props.title}</p>
+      <form 
+        className={style.app_form}
         onSubmit={(e) =>
           props.onSubmit(e, name, description, category, price, quantity, link)
         }
       >
         <div>
-          <label htmlFor="product_name">Product Name</label>
+          <label htmlFor="product_name" className={style.app_label}>Product Name</label>
           <input
+            className={style.app_input}
             type="text"
             id="product_name"
             value={name}
@@ -67,19 +67,20 @@ export default function NewItem(props) {
           />
         </div>
         <div>
-          <label htmlFor="product_description">Product Description</label>
-          <input
-            type="text"
+          <label htmlFor="product_description" className={style.app_label}>Product Description</label>
+          <textarea
+            className={style.app_textarea}
+            rows="5"
             id="product_description"
             value={description}
             onChange={handleDescriptionChange}
             required
           />
         </div>
-        <div>
+        <div className={style.app_flex_row_1}>
           <div>
-            <label htmlFor="category">Category</label>
-            <select
+            <label htmlFor="category" className={style.app_label}>Category</label>
+            <select className={style.app_select}
               id="category"
               name="category"
               value={category}
@@ -97,8 +98,9 @@ export default function NewItem(props) {
             </select>
           </div>
           <div>
-            <label htmlFor="price">Price</label>
+            <label htmlFor="price" className={style.app_label}>Price</label>
             <input
+              className={style.app_input}
               type="text"
               id="price"
               value={price}
@@ -107,10 +109,11 @@ export default function NewItem(props) {
             />
           </div>
         </div>
-        <div>
+        <div className={style.app_flex_row_2}>
           <div>
-            <label htmlFor="quantity">In Stock Quantity</label>
+            <label htmlFor="quantity" className={style.app_label}>In Stock Quantity</label>
             <input
+              className={style.app_input}
               type="text"
               id="quantity"
               value={quantity}
@@ -119,26 +122,33 @@ export default function NewItem(props) {
             />
           </div>
           <div>
-            <label htmlFor="image">Add Image Link</label>
-            <input
-              type="text"
-              id="image"
-              value={link}
-              onChange={handleLinkChange}
-            />
-            <button onClick={handleUpload}>Upload</button>
+            <label htmlFor="image" className={style.app_label}>Add Image Link</label>
+            <div className={style.button_holder}>
+              <input
+                className={style.app_input}
+                type="text"
+                id="image"
+                value={link}
+                onChange={handleLinkChange}
+              />
+              <button className={style.app_upload_button} onClick={handleUpload}>Upload</button>
+            </div>
           </div>
         </div>
 
-        <div className={styles.imagePreview}>
-          <img src={imagePreview} />
-          {!isPreview ? <p>Image Preview!</p> : null}
+        <div className={style.app_img_container}>
+          <img className={style.app_img_preview} src={imagePreview} />
+          {!isPreview ? <p className={style.app_img_text}>Image Preview!</p> : null}
         </div>
 
-        <button type="submit" className={styles.submitButton}>
-          {/* Add Product */}
-          {props.button}
-        </button>
+        <div className={style.submit_button_container}>
+          <button className={style.app_submit_button} type="submit">
+            {props.button}
+          </button>
+          {props.title === "Edit Product" ? <button className={style.app_delete_button} type="button" onClick={props.onClick}>
+            Delete
+          </button> : null}
+        </div>
       </form>
     </div>
   );

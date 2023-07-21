@@ -87,37 +87,37 @@ const cartSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchCartAction.fulfilled, (state, action) => {
-      state.status = "succeeded";
+      state.status = "fetch succeeded";
       state.cart = action.payload.cart;
       state.totalPrice = action.payload.totalPrice;
     });
     builder.addCase(fetchCartAction.rejected, (state, action) => {
-      state.status = "failed";
+      state.status = "fetch failed";
     });
     builder.addCase(fetchCartAction.pending, (state, action) => {
-      state.status = "pending";
+      state.status = "fetch pending";
     });
     builder.addCase(cartIncrementAction.fulfilled, (state, action) => {
-      state.status = "succeeded";
+      state.status = "increment succeeded";
       state.cart[action.payload.itemId] = action.payload.addedItem;
       state.totalPrice += action.payload.addedPrice;
     });
     builder.addCase(cartIncrementAction.rejected, (state, action) => {
-      state.status = "failed";
+      state.status = "increment failed";
     });
     builder.addCase(cartIncrementAction.pending, (state, action) => {
-      state.status = "pending";
+      state.status = "increment pending";
     });
     builder.addCase(cartDecrementAction.fulfilled, (state, action) => {
-      state.status = "succeeded";
+      state.status = "decrement succeeded";
       state.cart = action.payload.cart;
       state.totalPrice -= action.payload.reducedPrice;
     });
     builder.addCase(cartDecrementAction.rejected, (state, action) => {
-      state.status = "failed";
+      state.status = "decrement failed";
     });
     builder.addCase(cartDecrementAction.pending, (state, action) => {
-      state.status = "pending";
+      state.status = "decrement pending";
     });
   },
 });

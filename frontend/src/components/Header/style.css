@@ -28,6 +28,7 @@ nav form {
 
 nav form input {
   padding-right: 2rem;
+  color: black;
   flex-grow: 1;
   height: 2rem;
   box-sizing: border-box;
@@ -65,14 +66,14 @@ nav p {
   white-space: nowrap;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 580px) {
   :root {
     font-size: 14px;
   }
 
   nav {
     flex-wrap: wrap;
-    padding-bottom: 1rem;
+    padding: 1rem;
     height: auto;
   }
   .hidden {

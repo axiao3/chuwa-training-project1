@@ -10,7 +10,7 @@ export function createItem(
   quantity,
   link
 ) {
-  console.log("token sending: ", localStorage.getItem("token"));
+  // console.log("token sending: ", localStorage.getItem("token"));
   return new Promise((resolve, reject) => {
     axios
       .post(
@@ -33,6 +33,7 @@ export function createItem(
 }
 
 export function editItem(
+  user_id,
   item_id,
   name,
   description,
@@ -45,7 +46,16 @@ export function editItem(
     axios
       .put(
         `${apiUrl}/item`,
-        { item_id, name, description, category, price, quantity, link },
+        {
+          user_id,
+          item_id,
+          name,
+          description,
+          category,
+          price,
+          quantity,
+          link,
+        },
         {
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -62,13 +72,36 @@ export function editItem(
   });
 }
 
-export function getItemsList(sort, page) {
+export function deleteItem(user_id, item_id) {
+  // console.log("token sending: ", localStorage.getItem("token"));
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(`${apiUrl}/item/${item_id}`, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+        data: { user_id, item_id }, // Wrap data inside the 'data' property for delete method
+      })
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
+      });
+  });
+}
+
+export function getItemsList(sort, page, name) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${apiUrl}/item/get-list/${sort}/${page}`, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
+        params: {
+          name: name
+        }
       })
       .then((response) => {
         //[{…}, {…}, {…}]
@@ -100,13 +133,16 @@ export function getOneItem(id) {
   });
 }
 
-export function getItemsAmount() {
+export function getItemsAmount(keywords) {
   return new Promise((resolve, reject) => {
     axios
       .get(`${apiUrl}/item/get-amount`, {
         headers: {
           Authorization: localStorage.getItem("token"),
         },
+        params: {
+          keywords: keywords
+        }
       })
       .then((response) => {
         resolve(response.data);

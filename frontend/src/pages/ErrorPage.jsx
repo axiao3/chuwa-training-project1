@@ -21,19 +21,21 @@ export default function ErrorPage() {
 
         <h1 aria-label="Error">Ooops, something went wrong!</h1>
 
-        <button
-          className="error-item"
-          style={{
-            color: "white",
-            backgroundColor: "var(--var-button-color)",
-            width: "10%",
-            height: "3rem",
-          }}
-          onClick={handleClick}
-        >
-          {" "}
-          Go Home{" "}
-        </button>
+        <div>
+          <button
+            className="error-item"
+            style={{
+              color: "white",
+              backgroundColor: "var(--var-button-color)",
+              // width: "10%",
+              // height: "3rem",
+            }}
+            onClick={handleClick}
+          >
+            {" "}
+            Go Home{" "}
+          </button>
+        </div>
       </div>
     </div>
   );

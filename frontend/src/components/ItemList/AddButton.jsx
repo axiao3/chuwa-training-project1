@@ -8,9 +8,18 @@ import { getOneItem } from "../../services/item";
 
 export default function AddButton(props) {
   //props.itemId
-  const cart = useSelector((state) => state.cart.cart);
-  //const item = useSelector((state) => state.items.items)[props.itemId];
+  const {cart, status} = useSelector((state) => state.cart);
+  // const item = useSelector((state) => state.items);
   const dispatch = useDispatch();
+  const [disable, setDisable] = useState(false);
+
+  useEffect(() => {
+    if (status.includes("succeeded")) {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [status])
 
   const handleAdd = async() => {
     // console.log(666,props.itemId, item, cart[props.itemId]);
@@ -29,15 +38,15 @@ export default function AddButton(props) {
 
   return !cart[props.itemId] ? (
     <div className="add-button">
-      <button onClick={handleAdd}>Add</button>
+      <button  disabled={disable} onClick={handleAdd}>Add</button>
     </div>
   ) : (
     <div className="add-button">
-      <button onClick={handleRemove} style={{ fontSize: "1.2rem" }}>
+      <button disabled={disable} onClick={handleRemove} style={{ fontSize: "1.2rem" }}>
         -
       </button>
       <p>{cart[props.itemId].quantity}</p>
-      <button onClick={handleAdd} style={{ fontSize: "1.2rem" }}>
+      <button disabled={disable} onClick={handleAdd} style={{ fontSize: "1.2rem" }}>
         +
       </button>
     </div>

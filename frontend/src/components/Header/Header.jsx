@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,6 +18,8 @@ export default function Header(props) {
   const dispatch = useDispatch();
   const { user, isAuthenticated } = useSelector((state) => state.user);
   const [cartOpen, setCartOpen] = useState(false);
+  const [productName, setProductName] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (Object.keys(user).length > 0) {
@@ -42,6 +45,12 @@ export default function Header(props) {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // navigate(`/items?name=${productName}`);
+    window.location.href = `/items?name=${productName}`;
+  }
+
   return (
     <header>
       <nav>
@@ -60,8 +69,8 @@ export default function Header(props) {
             Chuwa
           </span>
         </p>
-        <form className="nav-item">
-          <input type="text" />
+        <form className="nav-item" onSubmit={handleSubmit}>
+          <input type="text" value={productName} onChange={(e) => setProductName(e.target.value)} />
           <button type="submit">
             <FontAwesomeIcon icon={faSearch} />
           </button>
@@ -85,7 +94,7 @@ export default function Header(props) {
 
           <button onClick={handleCart}>
             <FontAwesomeIcon icon={faShoppingCart} />
-            <p>${(cart.totalPrice).toFixed(2) ?? 0.0}</p>
+            <p>${cart.totalPrice.toFixed(2) ?? 0.0}</p>
           </button>
         </div>
       </nav>
